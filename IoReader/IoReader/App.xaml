@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:IoReader"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+         <ResourceDictionary Source="ApplicationResources.xaml"/>
     </Application.Resources>
 </Application>

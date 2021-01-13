@@ -5,8 +5,87 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IoReader"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="IoReader" 
+        Height="750" 
+        Width="1000"
+        WindowStartupLocation="Manual"
+        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}"
+        Style="{StaticResource IoWindowStyle}">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="General.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="IoMenuToggleButtonStyle" 
+                   TargetType="CheckBox">
+                <Setter Property="Foreground"
+                        Value="{StaticResource BackgroundBrush}"/>
+                <Setter Property="Background"
+                        Value="{StaticResource HighlightBrush}"/>
+                <Setter Property="BorderThickness"
+                        Value="4"/>
+                <Setter Property="BorderBrush"
+                        Value="{StaticResource BackgroundBrush}"/>
+                <Setter Property="FontSize"
+                        Value="54"/>
+                <Setter Property="ToolTip"
+                        Value="Open menu bar"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToggleButton">
+                            <Border x:Name="ToggleButtonBorder" 
+                                    CornerRadius="30"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Padding="4,0"
+                                    Width="auto"
+                                    Height="{Binding RelativeSource={RelativeSource Self}, Path=ActualWidth}">
+                                <TextBlock Foreground="{TemplateBinding Foreground}"
+                                           Text="Io"
+                                           Margin="0,-8"
+                                           TextAlignment="Left"
+                                           FontFamily="Eras"
+                                           FontWeight="DemiBold"
+                                           FontSize="{TemplateBinding FontSize}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=ToggleButtonBorder, Path=IsMouseOver}"
+                                             Value="True">
+                                    <Setter Property="Background"
+                                            Value="{StaticResource HighlightRadialGradientBrush}"/>
+                                    <Setter Property="FontSize"
+                                            Value="56"/>
+                                    <Setter Property="BorderThickness"
+                                            Value="3"/>
+                                </DataTrigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
-        
+        <CheckBox x:Name="IoMenuToggleButton"
+                     HorizontalAlignment="Left"
+                     VerticalAlignment="Top"
+                     Height="auto"
+                     Width="auto"
+                     Style="{StaticResource IoMenuToggleButtonStyle}"
+                     Margin="24,-30"
+                     Content="Io"/>
+        <DockPanel>
+            <local:IoMenuBar x:Name="MenuBar" 
+                             DockPanel.Dock="Left"
+                             Margin="24,68,24,14"
+                             Width="{Binding ElementName=IoMenuToggleButton, Path=ActualWidth}">
+            </local:IoMenuBar>
+            <Grid Background="{StaticResource LightBorderBrush}">
+
+            </Grid>
+        </DockPanel>
     </Grid>
 </Window>
