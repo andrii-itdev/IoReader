@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="IoReader.BookInformationViewModel">
+    <Position X="5" Y="3.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgACQBABiAEBAgAAIAAEAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\LibraryViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Book" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Bookmarks" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="IoReader.LibraryViewModel">
+    <Position X="16.75" Y="3.75" Width="2.75" />
+    <AssociationLine Name="BookShelves" Type="IoReader.BookShelfViewModel" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="16.75" Y="4.875" />
+        <Point X="16.633" Y="4.922" />
+        <Point X="15.676" Y="4.922" />
+        <Point X="15.676" Y="5.5" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAACAAAIAAAAAAAAAAAAABAEAAAAAI=</HashCode>
+      <FileName>ViewModels\BookInformationViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Library" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="BookShelves" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="IoReader.BookViewModel">
+    <Position X="1.25" Y="3.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAABAAAAAAAAAAAAAAAAAIAEAAAAAAAA=</HashCode>
+      <FileName>ViewModels\BookViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Book" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="IoReader.IoFrameViewModelBase">
+    <Position X="5" Y="0.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>ViewModels\IoWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="IoReader.BookShelfViewModel">
+    <Position X="12.5" Y="5.5" Width="3.25" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <AssociationLine Name="BooksInfos" Type="IoReader.BookInformationViewModel" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="13.165" Y="5.5" />
+        <Point X="13.165" Y="4.188" />
+        <Point X="7.75" Y="4.188" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AEAAAEAAAEAAAMAAAAAQAAAAgAAAAAAAAAAAAEQAAAA=</HashCode>
+      <FileName>ViewModels\BookShelfViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Bookshelf" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="BooksInfos" />
+    </ShowAsCollectionAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="IoReader.BookmarkViewModel">
+    <Position X="9" Y="4.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAgAAAAAQAgAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\BookmarkViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="IoReader.BookModel">
+    <Position X="1.25" Y="7.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAABABgAEAAgAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\BookModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IoReader.LibraryModel">
+    <Position X="16.75" Y="7.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\LibraryModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Bookshelves" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="IoReader.BookShelfModel">
+    <Position X="13" Y="9.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\BookshelfModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Books" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="IoReader.BookmarkModel">
+    <Position X="9" Y="7.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAACAAAA=</HashCode>
+      <FileName>Models\BookmarkModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IoReader.ReaderWindowViewModel">
+    <Position X="9.75" Y="0.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAEAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>ViewModels\ReaderWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Frame" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
