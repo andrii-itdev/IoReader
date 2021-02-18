@@ -97,7 +97,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="ClassDiagram.cd" />
+    <None Include="Documentation\Diagrams\ClassDiagram.cd" />
+    <None Include="Documentation\README.md" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -106,6 +107,18 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Documentation\Diagrams\ClassDiagram_v1.png" />
+    <Resource Include="Documentation\Diagrams\ClassDiagram_v2.png" />
+    <Resource Include="Documentation\Mockups\alternative_mockups.jpg" />
+    <Resource Include="Documentation\Mockups\Mockups.jpg" />
+    <Resource Include="Documentation\Mockups\old\bookshelves.png" />
+    <Resource Include="Documentation\Mockups\old\dictionary.png" />
+    <Resource Include="Documentation\Mockups\old\opened_document_mockup.png" />
+    <Resource Include="Documentation\Mockups\old\settings_page.png" />
+    <Resource Include="Documentation\Mockups\old\settings_position.png" />
+    <Resource Include="Documentation\Mockups\old\settings_shortcuts.png" />
+    <Resource Include="Documentation\Mockups\old\settings_startup.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
