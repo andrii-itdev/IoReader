@@ -55,6 +55,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Views\BookInformationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\BookContentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LibraryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -63,13 +75,19 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="Views\BookInformationPage.xaml.cs">
+      <DependentUpon>BookInformationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BookContentPage.xaml.cs">
+      <DependentUpon>BookContentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LibraryPage.xaml.cs">
+      <DependentUpon>LibraryPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ReaderWindowViewModel.cs" />
     <Compile Include="ViewModels\BookmarkViewModel.cs" />
-    <Compile Include="Models\BookmarkModel.cs" />
-    <Compile Include="Models\BookModel.cs" />
-    <Compile Include="Models\BookshelfModel.cs" />
     <Compile Include="ViewModels\BookShelfViewModel.cs" />
-    <Compile Include="Models\LibraryModel.cs" />
     <Compile Include="ViewModels\BookInformationViewModel.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />
     <Compile Include="ViewModels\IoWindowViewModel.cs" />

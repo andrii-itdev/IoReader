@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace IoReader
@@ -39,6 +40,14 @@ namespace IoReader
             get => default;
             set
             {
+            }
+        }
+
+        public override void OnCollapseRevealBookExecute(object frameObj)
+        {
+            if (frameObj is Frame frame)
+            {
+                frame.Navigate(new Uri("Views/LibraryPage.xaml"), UriKind.Relative);
             }
         }
     }
