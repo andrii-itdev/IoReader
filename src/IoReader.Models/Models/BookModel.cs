@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Windows.Controls;
 
 namespace IoReader
 {
@@ -41,7 +42,7 @@ namespace IoReader
             }
         }
 
-        public System.Windows.Controls.Image Picture
+        public Image Picture
         {
             get => default;
             set
