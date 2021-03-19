@@ -1,39 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
-namespace IoReader
+namespace IoReader.ViewModels
 {
-    public class BookmarkViewModel : INotifyPropertyChanged
+    public class BookmarkViewModel : ViewModelBase
     {
-        public ICommand RemoveBookmarkCommand
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public ICommand RemoveBookmarkCommand { get; set; }
 
-        public string Name
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public ICommand GotoCommand
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
+        public ICommand GotoCommand { get; set; }
+        
+        public string Name { get; set; }
     }
 }

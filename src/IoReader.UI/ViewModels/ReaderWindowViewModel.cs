@@ -1,63 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using System.Windows.Input;
 
-namespace IoReader
+namespace IoReader.ViewModels
 {
-    public class ReaderWindowViewModel : INotifyPropertyChanged
+    public class ReaderWindowViewModel : ViewModelBase
     {
-        #region Fields
-
-        IoFrameViewModelBase frame;
-
-        #endregion
-
         #region Properties
 
-        public System.Windows.Input.ICommand ExitCommand
-        {
-            get;
-            set;
-        }
+        public ICommand ExitCommand { get; set; }
 
-        public System.Windows.Input.ICommand MaximizeCommand
-        {
-            get;
-            set;
-        }
+        public ICommand MaximizeCommand { get; set; }
 
-        public System.Windows.Input.ICommand MinimizeCommand
-        {
-            get;
-            set;
-        }
+        public ICommand MinimizeCommand { get; set; }
 
-        public IoFrameViewModelBase Frame
-        {
-            get { return frame; }
-            set
-            {
-                frame = value;
-                NotifyPropertyChanged();
-            }
-        }
+        public WindowContentViewModel IoWindow { get; set; }
 
         #endregion
 
         public ReaderWindowViewModel()
         {
-            this.Frame = new LibraryViewModel();
-            this.Frame.CollapseRevealBookCommand.Execute(this.Frame);
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            IoWindow = new WindowContentViewModel();
         }
     }
 }
