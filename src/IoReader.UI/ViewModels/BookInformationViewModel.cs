@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace IoReader
 {
-    public class LibraryViewModel : IoFrameViewModelBase
+    public class LibraryViewModel : ContentViewModelBase
     {
         public IEnumerable<BookShelfViewModel> BookShelves
         {
@@ -58,12 +58,5 @@ namespace IoReader
             }
         }
 
-        public override void OnCollapseRevealBookExecute(object frameObj)
-        {
-            if (frameObj is Frame frame)
-            {
-                frame.Source = new Uri("Views/BookContentPage.xaml", UriKind.Relative);
-            }
-        }
     }
 }

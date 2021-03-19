@@ -3,28 +3,65 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:IoReader"
+        xmlns:local="clr-namespace:IoReader" xmlns:selectors="clr-namespace:IoReader.Selectors"
         mc:Ignorable="d"
         Title="MainWindow" 
         WindowStartupLocation="CenterScreen"
         Height="650" 
         Width="800">
+    <Window.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="BookContentTemplate"
+                          DataType="{x:Type local:BookViewModel}">
+                <Grid>
+                    <!--<RichTextBox Height="1000"></RichTextBox>-->
+                    <TextBlock Text="My Book"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Height="1000" />
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="BookInformationTemplate"
+                          DataType="{x:Type local:BookInformationViewModel}">
+                <Grid>
+                    <TextBlock Text="Book Information"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Height="1000" />
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="LibraryTemplate"
+                          DataType="{x:Type local:LibraryViewModel}">
+                <Grid>
+                    <TextBlock Text="Library"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Height="1000" />
+                </Grid>
+            </DataTemplate>
+
+            <selectors:ViewTemplateSelector x:Key="ContentViewTemplateSelector" 
+                                            BookContentTemplate="{StaticResource BookContentTemplate}"
+                                            BookInformationTemplate="{StaticResource BookInformationTemplate}"
+                                            LibraryTemplate="{StaticResource LibraryTemplate}" />
+        </ResourceDictionary>
+    </Window.Resources>
     <Window.DataContext>
         <local:ReaderWindowViewModel x:Name="MainWindowDataContext"/>
 
     </Window.DataContext>
 
-    <DockPanel>
+    <DockPanel DataContext="{Binding Path=IoWindow}">
         <DockPanel DockPanel.Dock="Top"
-                   Background="SandyBrown"
-                   DataContext="{Binding Frame}">
+                   Background="SandyBrown">
             <Button DockPanel.Dock="Left"
                     FontSize="22"
                     FontWeight="Bold"
                     Padding="10"
                     Content="Io" 
-                    Command="{Binding CollapseRevealBookCommand}"
-                    CommandParameter="{Binding ElementName=TheFrame}">
+                    Command="{Binding Path=CollapseRevealBookCommand}">
             </Button>
             
             <Grid>
@@ -39,15 +76,15 @@
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
-                <Frame x:Name="TheFrame"
-                       Grid.Column="1" 
-                       Margin="0,50,0,0"
-                       Background="Bisque"
-                       BorderBrush="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
-                       BorderThickness="1"
-                       VerticalAlignment="Stretch"
-                       DataContext="{Binding Frame, Mode=OneWayToSource}"
-                       Source="Views/LibraryPage.xaml" />
+                <ContentControl x:Name="ViewContent" 
+                                Grid.Column="1" 
+                                Margin="0,50,0,0"
+                                Background="Bisque"
+                                BorderBrush="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                                BorderThickness="1"
+                                VerticalAlignment="Stretch"
+                                ContentTemplateSelector="{StaticResource ContentViewTemplateSelector}"
+                                Content="{Binding Path=ContentVM}" />
             </Grid>
         </ScrollViewer>
     </DockPanel>

@@ -4,44 +4,46 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows.Input;
 
 namespace IoReader
 {
-    public class ReaderWindowViewModel : INotifyPropertyChanged
+    public class ReaderWindowViewModel
     {
+        private WindowContentViewModel ioWindow;
         #region Fields
-
-        IoFrameViewModelBase frame;
 
         #endregion
 
         #region Properties
 
-        public System.Windows.Input.ICommand ExitCommand
+        public ICommand ExitCommand
         {
             get;
             set;
         }
 
-        public System.Windows.Input.ICommand MaximizeCommand
+        public ICommand MaximizeCommand
         {
             get;
             set;
         }
 
-        public System.Windows.Input.ICommand MinimizeCommand
+        public ICommand MinimizeCommand
         {
             get;
             set;
         }
 
-        public IoFrameViewModelBase Frame
+        public WindowContentViewModel IoWindow
         {
-            get { return frame; }
+            get
+            {
+                return ioWindow;
+            }
             set
             {
-                frame = value;
-                NotifyPropertyChanged();
+                ioWindow = value;
             }
         }
 
@@ -49,15 +51,7 @@ namespace IoReader
 
         public ReaderWindowViewModel()
         {
-            this.Frame = new LibraryViewModel();
-            this.Frame.CollapseRevealBookCommand.Execute(this.Frame);
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            IoWindow = new WindowContentViewModel();
         }
     }
 }

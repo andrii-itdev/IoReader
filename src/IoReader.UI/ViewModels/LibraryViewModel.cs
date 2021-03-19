@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace IoReader
 {
-    public class BookInformationViewModel : IoFrameViewModelBase
+    public class BookInformationViewModel : ContentViewModelBase
     {
         public ICommand OpenLibraryCommand
         {
@@ -114,12 +114,5 @@ namespace IoReader
             }
         }
 
-        public override void OnCollapseRevealBookExecute(object frameObj)
-        {
-            if (frameObj is Frame frame)
-            {
-                frame.Navigate(new Uri("Views/BookInformationPage.xaml"), UriKind.Relative);
-            }
-        }
     }
 }

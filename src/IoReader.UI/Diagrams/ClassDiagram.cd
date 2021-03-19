@@ -3,7 +3,7 @@
   <Class Name="IoReader.BookInformationViewModel">
     <Position X="5" Y="3.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAACgACQBABiAEBAgAAIAAEAQAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAgACQBABiAEBAgAAIAAEAQAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\LibraryViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -15,16 +15,28 @@
   </Class>
   <Class Name="IoReader.LibraryViewModel">
     <Position X="16.75" Y="3.75" Width="2.75" />
+    <InheritanceLine Type="IoReader.ContentViewModelBase" ManuallyRouted="true">
+      <Path>
+        <Point X="6.375" Y="2.507" />
+        <Point X="6.375" Y="3.434" />
+        <Point X="10" Y="3.434" />
+        <Point X="10" Y="3.785" />
+        <Point X="16.5" Y="3.785" />
+        <Point X="16.5" Y="3.5" />
+        <Point X="18.125" Y="3.5" />
+        <Point X="18.125" Y="3.75" />
+      </Path>
+    </InheritanceLine>
     <AssociationLine Name="BookShelves" Type="IoReader.BookShelfViewModel" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="16.75" Y="5.156" />
+        <Point X="16.75" Y="4.875" />
         <Point X="16.633" Y="4.922" />
         <Point X="15.676" Y="4.922" />
         <Point X="15.676" Y="5.5" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAACAAAACAAAIAAAAAAAAAAAAABAEAAAAAI=</HashCode>
+      <HashCode>AAAAAAAAAAACAAAACAAAIAAAAAAAAAAAAABAEAAAAAI=</HashCode>
       <FileName>ViewModels\BookInformationViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -37,18 +49,18 @@
   <Class Name="IoReader.BookViewModel">
     <Position X="1.25" Y="3.75" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAEAAABAAAAAAAAAAAAAAAAAIAEAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAEAAABAAAAAAAAAAAAAAAAAIAEAAAAAAAA=</HashCode>
       <FileName>ViewModels\BookViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Book" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="IoReader.IoFrameViewModelBase">
-    <Position X="5" Y="0.75" Width="2.75" />
+  <Class Name="IoReader.ContentViewModelBase">
+    <Position X="5" Y="0.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAACAAIAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAgAAA=</HashCode>
-      <FileName>ViewModels\IoWindowViewModel.cs</FileName>
+      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ContentViewModelBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
@@ -60,8 +72,8 @@
     <AssociationLine Name="BooksInfos" Type="IoReader.BookInformationViewModel" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
         <Point X="13.165" Y="5.5" />
-        <Point X="13.165" Y="4.251" />
-        <Point X="7.75" Y="4.251" />
+        <Point X="13.165" Y="4.188" />
+        <Point X="7.75" Y="4.188" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
@@ -107,15 +119,24 @@
     <TypeIdentifier />
   </Class>
   <Class Name="IoReader.ReaderWindowViewModel">
-    <Position X="9.75" Y="0.5" Width="2.75" />
+    <Position X="14" Y="0.5" Width="2.75" />
     <TypeIdentifier>
-      <HashCode>AAEAAAEAAAAAAIAAAABAAAAAgAAAAAAAAAAAAQAAAAE=</HashCode>
+      <HashCode>AAEAAAEAgAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\ReaderWindowViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Property Name="Frame" />
+      <Property Name="IoWindow" />
     </ShowAsAssociation>
-    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="IoReader.WindowContentViewModel">
+    <Position X="10.25" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAACAQICAAAIAIAgAAAAAAAAgAAAAgAAAAAAAAAgAAA=</HashCode>
+      <FileName>WindowContentViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ContentVM" />
+    </ShowAsAssociation>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

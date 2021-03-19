@@ -75,7 +75,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="WindowContentViewModel.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Selectors\ViewTemplateSelector.cs" />
     <Compile Include="Views\BookInformationPage.xaml.cs">
       <DependentUpon>BookInformationPage.xaml</DependentUpon>
     </Compile>
@@ -90,7 +92,7 @@
     <Compile Include="ViewModels\BookShelfViewModel.cs" />
     <Compile Include="ViewModels\BookInformationViewModel.cs" />
     <Compile Include="ViewModels\BookViewModel.cs" />
-    <Compile Include="ViewModels\IoWindowViewModel.cs" />
+    <Compile Include="ViewModels\ContentViewModelBase.cs" />
     <Compile Include="ViewModels\LibraryViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
