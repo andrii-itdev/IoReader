@@ -4,11 +4,12 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows;
 using System.Windows.Input;
 
 namespace IoReader
 {
-    public class WindowContentViewModel
+    public class WindowContentViewModel : INotifyPropertyChanged
     {
         ContentViewModelBase contentView;
 
@@ -51,7 +52,10 @@ namespace IoReader
 
         private void OnCollapseRevealBookExecute(object obj)
         {
-            this.ContentVM = this.ContentVM.IoButtonTransitionTarget;
+            if (obj is ContentViewModelBase cvmb)
+            {
+                this.ContentVM = cvmb;
+            }
         }
 
         private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
