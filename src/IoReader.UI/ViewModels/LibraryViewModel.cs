@@ -1,119 +1,23 @@
-﻿using IoReader.ViewModels;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Windows.Controls;
 using System.Windows.Input;
+using IoReader.Models;
 
-namespace IoReader
+namespace IoReader.ViewModels
 {
-    public class BookInformationViewModel : ViewModelBase, IContentViewModel
+    public class LibraryViewModel : ViewModelBase, IContentViewModel
     {
-        public ICommand OpenLibraryCommand
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public IEnumerable<BookShelfViewModel> BookShelves { get; set; }
 
-        public ICommand RemoveFromLibraryCommand
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public ICommand AddBookShelfCommand { get; set; }
 
-        public ICommand ImportBookInformationCommand
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public ICommand ImportBookShelfCommand { get; set; }
 
-        public ICommand ExportBookInformationCommand
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public ICommand SearchTheLibraryCommand { get; set; }
+        
+        public ObservableCollection<ICommand> LibraryCommands { get; set; }
 
-        public ObservableCollection<ICommand> BookInformationActionsCommands
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public ICommand OpenBookCommand
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public string Title
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public string Author
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public int Year
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public int Description
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public System.Windows.Controls.Image Picture
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public ObservableCollection<BookmarkViewModel> Bookmarks
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public BookModel Book
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public LibraryModel Library { get; set; }
 
         public IContentViewModel IoButtonTransitionTarget { get; set; }
     }

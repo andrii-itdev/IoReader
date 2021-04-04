@@ -1,63 +1,37 @@
-﻿using IoReader.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
+using IoReader.Models;
 
-namespace IoReader
+namespace IoReader.ViewModels
 {
-    public class LibraryViewModel : ViewModelBase, IContentViewModel
+    public class BookInformationViewModel : ViewModelBase, IContentViewModel
     {
-        public IEnumerable<BookShelfViewModel> BookShelves
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public ICommand OpenLibraryCommand { get; set; }
 
-        public System.Windows.Input.ICommand AddBookShelfCommand
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public ICommand RemoveFromLibraryCommand { get; set; }
 
-        public System.Windows.Input.ICommand ImportBookShelfCommand
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public ICommand ImportBookInformationCommand { get; set; }
 
-        public ObservableCollection<ICommand> LibraryCommands
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public ICommand ExportBookInformationCommand { get; set; }
+        
+        public ICommand OpenBookCommand { get; set; }
+        
+        public ObservableCollection<ICommand> BookInformationActionsCommands { get; set; }
 
-        public ICommand SearchTheLibraryCommand
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public string Title { get; set; }
 
-        public LibraryModel Library
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public string Author { get; set; }
+
+        public int Year { get; set; }
+
+        public int Description { get; set; }
+
+        public Image Picture { get; set; }
+
+        public ObservableCollection<BookmarkViewModel> Bookmarks { get; set; }
+
+        public BookModel Book { get; set; }
 
         public IContentViewModel IoButtonTransitionTarget { get; set; }
     }

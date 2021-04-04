@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
+using IoReader.ViewModels;
 
 namespace IoReader.Selectors
 {
@@ -22,11 +18,11 @@ namespace IoReader.Selectors
         {
             switch (item)
             {
-                case LibraryViewModel vm:
+                case LibraryViewModel _:
                     return LibraryTemplate;
-                case BookInformationViewModel vm:
+                case BookInformationViewModel _:
                     return BookInformationTemplate;
-                case BookViewModel vm:
+                case BookViewModel _:
                     return BookContentTemplate;
                 default:
                     return base.SelectTemplate(item, container);

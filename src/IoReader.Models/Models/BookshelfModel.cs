@@ -1,26 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace IoReader
+namespace IoReader.Models
 {
-    public class BookShelfModel
+    public class BookshelfModel
     {
-        public string Title
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public string Title { get; set; }
 
-        public IEnumerable<BookModel> Books
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public IEnumerable<BookModel> Books { get; set; }
     }
 }

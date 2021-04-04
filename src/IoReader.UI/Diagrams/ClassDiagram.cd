@@ -12,7 +12,7 @@
     </InheritanceLine>
     <TypeIdentifier>
       <HashCode>ABAAgACQBABiAEBAgAAIAAEAQAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ViewModels\LibraryViewModel.cs</FileName>
+      <FileName>ViewModels\BookInformationViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Book" />
@@ -32,17 +32,15 @@
         <Point X="18.125" Y="3.75" />
       </Path>
     </InheritanceLine>
-    <AssociationLine Name="BookShelves" Type="IoReader.BookShelfViewModel" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+    <AssociationLine Name="BookShelves" Type="IoReader.BookShelfViewModel" ManuallyRouted="true" FixedFromPoint="true">
       <Path>
-        <Point X="16.75" Y="4.995" />
-        <Point X="16.633" Y="4.922" />
-        <Point X="15.676" Y="4.922" />
-        <Point X="15.676" Y="5.5" />
+        <Point X="16.75" Y="5.25" />
+        <Point X="15.75" Y="5.25" />
       </Path>
     </AssociationLine>
     <TypeIdentifier>
       <HashCode>ABAAAAAAAAACAAAACAAAIAAAAAAAAAAAAABAEAAAAAI=</HashCode>
-      <FileName>ViewModels\BookInformationViewModel.cs</FileName>
+      <FileName>ViewModels\LibraryViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Library" />
@@ -64,13 +62,13 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="IoReader.BookShelfViewModel">
-    <Position X="12.5" Y="5.5" Width="3.25" />
+    <Position X="12.5" Y="4.75" Width="3.25" />
     <Compartments>
       <Compartment Name="Properties" Collapsed="true" />
     </Compartments>
     <AssociationLine Name="BooksInfos" Type="IoReader.BookInformationViewModel" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
       <Path>
-        <Point X="13.165" Y="5.5" />
+        <Point X="13.165" Y="4.75" />
         <Point X="13.165" Y="4.215" />
         <Point X="7.75" Y="4.215" />
       </Path>
@@ -79,9 +77,6 @@
       <HashCode>AEAAAEAAAEAAAMAAAAAQAAAAgAAAAAAAAAAAAEQAAAA=</HashCode>
       <FileName>ViewModels\BookShelfViewModel.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Bookshelf" />
-    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="BooksInfos" />
     </ShowAsCollectionAssociation>

@@ -1,78 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Input;
+using IoReader.Models;
 
-namespace IoReader
+namespace IoReader.ViewModels
 {
-    public class BookShelfViewModel : INotifyPropertyChanged
+    public class BookShelfViewModel : ViewModelBase
     {
-        public System.Windows.Input.ICommand AddBookCommand
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public ICommand AddBookCommand { get; set; }
 
-        public System.Windows.Input.ICommand MoveUpTheListCommand
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public ICommand MoveUpTheListCommand { get; set; }
 
-        public System.Windows.Input.ICommand MoveDownTheListCommand
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public ICommand MoveDownTheListCommand { get; set; }
 
-        public System.Windows.Input.ICommand ExportBookshelfCommand
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public ICommand ExportBookshelfCommand { get; set; }
 
-        public System.Windows.Input.ICommand RemoveBookshelfCommand
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public ICommand RemoveBookshelfCommand { get; set; }
 
-        public ObservableCollection<BookInformationViewModel> BooksInfos
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public ObservableCollection<BookInformationViewModel> BooksInfos { get; set; }
 
-        public BookShelfModel Bookshelf
-        {
-            get => default;
-            set
-            {
-            }
-        }
+        public BookshelfModel Bookshelf { get; set; }
 
-        public string Title
-        {
-            get => default;
-            set
-            {
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        public string Title { get; set; }
     }
 }

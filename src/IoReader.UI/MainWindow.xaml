@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:IoReader" 
         xmlns:selectors="clr-namespace:IoReader.Selectors"
+        xmlns:viewModels="clr-namespace:IoReader.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" 
         WindowStartupLocation="CenterScreen"
@@ -12,7 +13,7 @@
         Width="800">
     <Window.Resources>
         <DataTemplate x:Key="BookContentTemplate" 
-                      DataType="{x:Type local:BookViewModel}">
+                      DataType="{x:Type viewModels:BookViewModel}">
             <Grid>
                 <TextBlock Text="My Book"
                            HorizontalAlignment="Center"
@@ -22,7 +23,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="BookInformationTemplate" 
-                      DataType="{x:Type local:BookInformationViewModel}">
+                      DataType="{x:Type viewModels:BookInformationViewModel}">
             <Grid>
                 <TextBlock Text="Book Information"
                            HorizontalAlignment="Center"
@@ -32,7 +33,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="LibraryTemplate" 
-                      DataType="{x:Type local:LibraryViewModel}">
+                      DataType="{x:Type viewModels:LibraryViewModel}">
             <Grid>
                 <TextBlock Text="Library"
                            HorizontalAlignment="Center"
@@ -47,7 +48,7 @@
                                         LibraryTemplate="{StaticResource LibraryTemplate}" />
     </Window.Resources>
     <Window.DataContext>
-        <local:ReaderWindowViewModel x:Name="MainWindowDataContext"/>
+        <viewModels:ReaderWindowViewModel x:Name="MainWindowDataContext"/>
 
     </Window.DataContext>
 
@@ -60,7 +61,7 @@
                     Padding="10"
                     Content="Io" 
                     Command="{Binding Path=CollapseRevealBookCommand}"
-                    CommandParameter="{Binding Path=ContentVM.IoButtonTransitionTarget}">
+                    CommandParameter="{Binding Path=ContentVm.IoButtonTransitionTarget}">
             </Button>
             
             <Grid>
@@ -82,7 +83,7 @@
                                 BorderBrush="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
                                 BorderThickness="1"
                                 VerticalAlignment="Stretch"
-                                Content="{Binding Path=ContentVM}"
+                                Content="{Binding Path=ContentVm}"
                                 ContentTemplateSelector="{StaticResource ContentViewTemplateSelector}">
                 </ContentControl>
 
