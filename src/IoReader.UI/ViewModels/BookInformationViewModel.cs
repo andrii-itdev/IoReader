@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IoReader.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Windows.Input;
 
 namespace IoReader
 {
-    public class LibraryViewModel : ContentViewModelBase
+    public class LibraryViewModel : ViewModelBase, IContentViewModel
     {
         public IEnumerable<BookShelfViewModel> BookShelves
         {
@@ -58,5 +59,6 @@ namespace IoReader
             }
         }
 
+        public IContentViewModel IoButtonTransitionTarget { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IoReader.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -9,7 +10,7 @@ using System.Windows.Input;
 
 namespace IoReader
 {
-    public class BookViewModel : ContentViewModelBase
+    public class BookViewModel : ViewModelBase, IContentViewModel
     {
         public ObservableCollection<ICommand> BookActionsCommands
         {
@@ -43,5 +44,6 @@ namespace IoReader
             }
         }
 
+        public IContentViewModel IoButtonTransitionTarget { get; set; }
     }
 }

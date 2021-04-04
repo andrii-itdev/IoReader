@@ -11,7 +11,7 @@ namespace IoReader
 {
     public class WindowContentViewModel : INotifyPropertyChanged
     {
-        ContentViewModelBase contentView;
+        IContentViewModel contentView;
 
         LibraryViewModel libraryVM = new LibraryViewModel();
         BookInformationViewModel bookInfoVM = new BookInformationViewModel();
@@ -31,7 +31,7 @@ namespace IoReader
                 this._collapseRevealBookCommand = value;
             }
         }
-        public ContentViewModelBase ContentVM
+        public IContentViewModel ContentVM
         {
             get { return contentView; }
             set
@@ -52,7 +52,7 @@ namespace IoReader
 
         private void OnCollapseRevealBookExecute(object obj)
         {
-            if (obj is ContentViewModelBase cvmb)
+            if (obj != null && obj is IContentViewModel cvmb)
             {
                 this.ContentVM = cvmb;
             }
