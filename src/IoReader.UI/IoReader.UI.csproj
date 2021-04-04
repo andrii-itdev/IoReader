@@ -75,6 +75,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Selectors\ViewTemplateSelector.cs" />
     <Compile Include="WindowContentViewModel.cs" />
     <Compile Include="RelayCommand.cs" />
     <Compile Include="Views\BookInformationPage.xaml.cs">
@@ -137,8 +138,6 @@
       <Name>IoReader.Models</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Selectors\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
