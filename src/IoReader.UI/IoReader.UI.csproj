@@ -91,10 +91,10 @@
     <Compile Include="ViewModels\ReaderWindowViewModel.cs" />
     <Compile Include="ViewModels\BookmarkViewModel.cs" />
     <Compile Include="ViewModels\BookShelfViewModel.cs" />
-    <Compile Include="ViewModels\LibraryViewModel.cs" />
-    <Compile Include="ViewModels\BookViewModel.cs" />
+    <Compile Include="ViewModels\ContentViewModels\LibraryViewModel.cs" />
+    <Compile Include="ViewModels\ContentViewModels\BookViewModel.cs" />
     <Compile Include="ViewModels\IContentViewModel.cs" />
-    <Compile Include="ViewModels\BookInformationViewModel.cs" />
+    <Compile Include="ViewModels\ContentViewModels\BookInformationViewModel.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
