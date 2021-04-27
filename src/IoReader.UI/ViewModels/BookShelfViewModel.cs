@@ -1,10 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using IoReader.Mediators;
 using IoReader.Models;
 
 namespace IoReader.ViewModels
 {
-    public class BookShelfViewModel : ViewModelBase
+    public class BookShelfViewModel : ViewModelBase, IHasContentMediator
     {
         public ICommand AddBookCommand { get; set; }
 
@@ -21,5 +22,11 @@ namespace IoReader.ViewModels
         public BookshelfModel Bookshelf { get; set; }
 
         public string Title { get; set; }
+        public ContentMediator Mediator { get; protected set; }
+
+        public BookShelfViewModel(ContentMediator mediator)
+        {
+            this.Mediator = mediator;
+        }
     }
 }

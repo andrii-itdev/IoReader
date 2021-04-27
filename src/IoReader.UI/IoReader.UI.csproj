@@ -63,7 +63,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LibraryPage.xaml">
+    <Page Include="Views\Library.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -87,8 +87,8 @@
     <Compile Include="Views\BookContentPage.xaml.cs">
       <DependentUpon>BookContentPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LibraryPage.xaml.cs">
-      <DependentUpon>LibraryPage.xaml</DependentUpon>
+    <Compile Include="Views\Library.xaml.cs">
+      <DependentUpon>Library.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\ReaderWindowViewModel.cs" />
     <Compile Include="ViewModels\BookmarkViewModel.cs" />

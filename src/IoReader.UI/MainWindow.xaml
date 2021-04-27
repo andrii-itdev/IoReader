@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:IoReader" 
         xmlns:selectors="clr-namespace:IoReader.Selectors"
         xmlns:viewModels="clr-namespace:IoReader.ViewModels"
+        xmlns:views="clr-namespace:IoReader.Views"
         mc:Ignorable="d"
         Title="MainWindow" 
         WindowStartupLocation="CenterScreen"
@@ -18,7 +19,7 @@
                 <TextBlock Text="My Book"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           Height="1000" />
+                           Height="300" />
             </Grid>
         </DataTemplate>
 
@@ -28,18 +29,13 @@
                 <TextBlock Text="Book Information"
                            HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           Height="1000" />
+                           Height="300" />
             </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="LibraryTemplate" 
                       DataType="{x:Type viewModels:LibraryViewModel}">
-            <Grid>
-                <TextBlock Text="Library"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           Height="1000" />
-            </Grid>
+            <views:Library></views:Library>
         </DataTemplate>
 
         <selectors:ViewTemplateSelector x:Key="ContentViewTemplateSelector" 

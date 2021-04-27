@@ -8,7 +8,7 @@ namespace IoReader.ViewModels
 {
     public class LibraryViewModel : ViewModelBase, IContentViewModel, IHasContentMediator
     {
-        public IEnumerable<BookShelfViewModel> BookShelves { get; set; }
+        public ObservableCollection<BookShelfViewModel> BookShelves { get; set; }
 
         public ICommand AddBookShelfCommand { get; set; }
 
@@ -27,6 +27,22 @@ namespace IoReader.ViewModels
         public LibraryViewModel(ContentMediator contentMediator)
         {
             Mediator = contentMediator;
+
+            this.BookShelves = new ObservableCollection<BookShelfViewModel>();
+            var bookInfos = new ObservableCollection<BookInformationViewModel>();
+            bookInfos.Add(new BookInformationViewModel(Mediator)
+            {
+                Title = "An Alborado",
+                Author = "J. J. Abrams",
+                Description = "A cool book about a real city made of diamonds"
+            });
+            this.BookShelves.Add(
+                new BookShelfViewModel(Mediator)
+                {
+                    Title = "Favorite Fiction",
+                    BooksInfos = bookInfos
+                }
+                );
         }
     }
 }

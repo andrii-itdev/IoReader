@@ -26,7 +26,7 @@ namespace IoReader.ViewModels
 
         public int Year { get; set; }
 
-        public int Description { get; set; }
+        public string Description { get; set; }
 
         public Image Picture { get; set; }
 

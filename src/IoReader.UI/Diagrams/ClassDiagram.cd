@@ -13,12 +13,13 @@
   <Class Name="IoReader.ViewModels.BookShelfViewModel">
     <Position X="17" Y="3.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AEAAAEAAAEAAAMAAAAAQAAAAAAAAAAAAAAAAAEQAAAA=</HashCode>
+      <HashCode>AEAAAEAAAEAAAMAAAAAQAAAACAAAAAAAAAAAAEQAAAA=</HashCode>
       <FileName>ViewModels\BookShelfViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Bookshelf" />
     </ShowAsAssociation>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="IoReader.ViewModels.BookInformationViewModel">
     <Position X="6.25" Y="3.75" Width="2.75" />

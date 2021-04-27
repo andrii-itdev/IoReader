@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace IoReader
+namespace IoReader.Views
 {
     /// <summary>
-    /// Interaction logic for LibraryPage.xaml
+    /// Interaction logic for Library.xaml
     /// </summary>
-    public partial class LibraryPage : Page
+    public partial class Library : UserControl
     {
-        public LibraryPage()
+        public Library()
         {
             InitializeComponent();
         }
