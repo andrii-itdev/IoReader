@@ -12,9 +12,6 @@
       VerticalAlignment="Stretch"
       Background="Aqua"
       Title="LibraryPage">
-    <Page.DataContext>
-        <viewModels:LibraryViewModel x:Name="LibraryDataContext" />
-    </Page.DataContext>
 
     <Grid>
         <TextBlock Text="Library"

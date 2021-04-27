@@ -75,6 +75,8 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Mediators\ContentMediator.cs" />
+    <Compile Include="Mediators\IHasContentMediator.cs" />
     <Compile Include="Selectors\ViewTemplateSelector.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WindowContentViewModel.cs" />
@@ -139,8 +141,6 @@
       <Name>IoReader.Models</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mediators\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

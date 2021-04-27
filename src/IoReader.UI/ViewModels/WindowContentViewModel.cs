@@ -1,15 +1,18 @@
 ﻿using System.Windows.Input;
 using IoReader.Commands;
+using IoReader.Mediators;
 
 namespace IoReader.ViewModels
 {
-    public class WindowContentViewModel : ViewModelBase
+    public class WindowContentViewModel : ViewModelBase, IHasContentMediator
     {
         private IContentViewModel _contentView;
 
-        private readonly LibraryViewModel _libraryVm = new LibraryViewModel();
-        private readonly BookInformationViewModel _bookInfoVm = new BookInformationViewModel();
-        private readonly BookViewModel _bookVm = new BookViewModel();
+        public ContentMediator Mediator { get; protected set; }
+
+        private readonly LibraryViewModel _libraryVm;
+        private readonly BookInformationViewModel _bookInfoVm;
+        private readonly BookViewModel _bookVm;
 
         public ICommand CollapseRevealBookCommand { get; set; }
 
@@ -23,20 +26,30 @@ namespace IoReader.ViewModels
             }
         }
 
-        public WindowContentViewModel()
+        public WindowContentViewModel(ContentMediator contentMediator)
         {
+            this.Mediator = contentMediator;
+            this._libraryVm = new LibraryViewModel(contentMediator);
+            this._bookInfoVm = new BookInformationViewModel(contentMediator);
+            this._bookVm = new BookViewModel(contentMediator);
             this.ContentVm = _libraryVm;
             this.CollapseRevealBookCommand = new RelayCommand(OnCollapseRevealBookExecute);
+            this.Mediator.NavigationEvent += MediatorOnNavigate;
             this._bookInfoVm.IoButtonTransitionTarget = _bookVm;
             this._libraryVm.IoButtonTransitionTarget = _bookVm;
             this._bookVm.IoButtonTransitionTarget = _libraryVm;
         }
 
-        private void OnCollapseRevealBookExecute(object obj)
+        private void MediatorOnNavigate(IContentViewModel contentViewModel)
         {
-            if (obj is IContentViewModel cvmb)
+            this.ContentVm = contentViewModel;
+        }
+
+        private void OnCollapseRevealBookExecute(object contentViewModel)
+        {
+            if (contentViewModel is IContentViewModel cvm)
             {
-                this.ContentVm = cvmb;
+                this.Mediator.Navigate(cvm.IoButtonTransitionTarget);
             }
         }
     }

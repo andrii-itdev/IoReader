@@ -47,10 +47,6 @@
                                         BookInformationTemplate="{StaticResource BookInformationTemplate}"
                                         LibraryTemplate="{StaticResource LibraryTemplate}" />
     </Window.Resources>
-    <Window.DataContext>
-        <viewModels:ReaderWindowViewModel x:Name="MainWindowDataContext"/>
-
-    </Window.DataContext>
 
     <DockPanel DataContext="{Binding Path=IoWindow}">
         <DockPanel DockPanel.Dock="Top"
@@ -61,7 +57,7 @@
                     Padding="10"
                     Content="Io" 
                     Command="{Binding Path=CollapseRevealBookCommand}"
-                    CommandParameter="{Binding Path=ContentVm.IoButtonTransitionTarget}">
+                    CommandParameter="{Binding Path=ContentVm}">
             </Button>
             
             <Grid>

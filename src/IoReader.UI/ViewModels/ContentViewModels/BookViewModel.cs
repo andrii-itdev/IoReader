@@ -1,11 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using IoReader.Mediators;
 using IoReader.Models;
 
 namespace IoReader.ViewModels
 {
-    public class BookViewModel : ViewModelBase, IContentViewModel
-    {
+    public class BookViewModel : ViewModelBase, IContentViewModel, IHasContentMediator
+    { 
         public ObservableCollection<ICommand> BookActionsCommands { get; set; }
 
         public int SaveBookCommand { get; set; }
@@ -15,5 +16,11 @@ namespace IoReader.ViewModels
         public BookModel Book { get; set; }
 
         public IContentViewModel IoButtonTransitionTarget { get; set; }
+        public ContentMediator Mediator { get; protected set; }
+
+        public BookViewModel(ContentMediator contentMediator)
+        {
+            Mediator = contentMediator;
+        }
     }
 }

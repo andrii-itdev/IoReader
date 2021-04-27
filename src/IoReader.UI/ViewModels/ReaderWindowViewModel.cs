@@ -1,8 +1,9 @@
 ﻿using System.Windows.Input;
+using IoReader.Mediators;
 
 namespace IoReader.ViewModels
 {
-    public class ReaderWindowViewModel : ViewModelBase
+    public class ReaderWindowViewModel : ViewModelBase, IHasContentMediator
     {
         #region Properties
 
@@ -14,11 +15,14 @@ namespace IoReader.ViewModels
 
         public WindowContentViewModel IoWindow { get; set; }
 
+        public ContentMediator Mediator { get; protected set; }
+
         #endregion
 
-        public ReaderWindowViewModel()
+        public ReaderWindowViewModel(ContentMediator contentMediator)
         {
-            IoWindow = new WindowContentViewModel();
+            IoWindow = new WindowContentViewModel(contentMediator);
+            Mediator = contentMediator;
         }
     }
 }

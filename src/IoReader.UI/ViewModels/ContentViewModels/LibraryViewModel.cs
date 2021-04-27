@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using IoReader.Mediators;
 using IoReader.Models;
 
 namespace IoReader.ViewModels
 {
-    public class LibraryViewModel : ViewModelBase, IContentViewModel
+    public class LibraryViewModel : ViewModelBase, IContentViewModel, IHasContentMediator
     {
         public IEnumerable<BookShelfViewModel> BookShelves { get; set; }
 
@@ -20,5 +21,12 @@ namespace IoReader.ViewModels
         public LibraryModel Library { get; set; }
 
         public IContentViewModel IoButtonTransitionTarget { get; set; }
+
+        public ContentMediator Mediator { get; protected set; }
+
+        public LibraryViewModel(ContentMediator contentMediator)
+        {
+            Mediator = contentMediator;
+        }
     }
 }
