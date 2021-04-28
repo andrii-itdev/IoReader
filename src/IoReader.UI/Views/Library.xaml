@@ -8,6 +8,22 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
         <ResourceDictionary>
+            <Style x:Key="FocusVisual">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <SolidColorBrush x:Key="Item.MouseOver.Background" Color="AntiqueWhite"/>
+            <SolidColorBrush x:Key="Item.MouseOver.Border" Color="Brown"/>
+            <SolidColorBrush x:Key="Item.SelectedInactive.Background" Color="SandyBrown"/>
+            <SolidColorBrush x:Key="Item.SelectedInactive.Border" Color="#FFDADADA"/>
+            <SolidColorBrush x:Key="Item.SelectedActive.Background" Color="SandyBrown"/>
+            <SolidColorBrush x:Key="Item.SelectedActive.Border" Color="Brown"/>
+
             <DataTemplate x:Key="BookInformationDataTemplate">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -30,12 +46,80 @@
                 </Grid>
             </DataTemplate>
 
-            <Style x:Key="BookInformationStyleKey"
-                   TargetType="ListViewItem">
-                <Setter Property="Background"
-                        Value="SandyBrown"/>
+            <Style x:Key="IoLibraryListViewItemStyle" 
+                   TargetType="{x:Type ListViewItem}">
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="Padding" Value="4,1"/>
+                <Setter Property="HorizontalContentAlignment" 
+                        Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                <Setter Property="VerticalContentAlignment" 
+                        Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
                 <Setter Property="ContentTemplate"
                         Value="{StaticResource BookInformationDataTemplate}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListViewItem}">
+                            <Border x:Name="Bd" 
+                                    BorderBrush="{TemplateBinding BorderBrush}" 
+                                    BorderThickness="{TemplateBinding BorderThickness}" 
+                                    Background="{TemplateBinding Background}" 
+                                    Padding="{TemplateBinding Padding}" 
+                                    SnapsToDevicePixels="true">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="IsMouseOver" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.MouseOver.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.MouseOver.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Selector.IsSelectionActive" Value="False"/>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedInactive.Border}"/>
+                                </MultiTrigger>
+                                <MultiTrigger>
+                                    <MultiTrigger.Conditions>
+                                        <Condition Property="Selector.IsSelectionActive" Value="True"/>
+                                        <Condition Property="IsSelected" Value="True"/>
+                                    </MultiTrigger.Conditions>
+                                    <Setter Property="Background" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Background}"/>
+                                    <Setter Property="BorderBrush" TargetName="Bd" Value="{StaticResource Item.SelectedActive.Border}"/>
+                                </MultiTrigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="TextElement.Foreground" TargetName="Bd" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="LibraryButtonStyleKey" 
+                   TargetType="Button">
+                <Setter Property="Margin"
+                        Value="8,0,8,0"/>
+                <Setter Property="Padding"
+                        Value="8,2"/>
+            </Style>
+
+            <Style x:Key="BookshelfButtonStyleKey" 
+                   TargetType="Button">
+                <Setter Property="Margin"
+                        Value="8"/>
+                <Setter Property="Padding"
+                        Value="20,16"/>
             </Style>
 
             <DataTemplate x:Key="BookshelfDataTemplate">
@@ -43,6 +127,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0"
                            HorizontalAlignment="Center"
@@ -52,24 +137,19 @@
                     </Label>
                     <ListView Grid.Row="1"
                               ItemsSource="{Binding Path=BooksInfos}"
-                              ItemContainerStyle="{StaticResource BookInformationStyleKey}">
+                              ItemContainerStyle="{StaticResource IoLibraryListViewItemStyle}">
                     </ListView>
+                    <DockPanel Grid.Row="2">
+                        <Button DockPanel.Dock="Left"
+                                Style="{StaticResource BookshelfButtonStyleKey}"
+                                Content="+"/>
+                        <Button DockPanel.Dock="Left"
+                                Style="{StaticResource BookshelfButtonStyleKey}"
+                                Content="-"/>
+                        <StackPanel></StackPanel>
+                    </DockPanel>
                 </Grid>
             </DataTemplate>
-
-            <Style x:Key="BookshelfStyleKey" 
-                   TargetType="ListViewItem">
-                <Setter Property="Background"
-                        Value="SandyBrown"/>
-                <Setter Property="ContentTemplate"
-                        Value="{StaticResource BookshelfDataTemplate}"/>
-            </Style>
-
-            <Style x:Key="LibraryButtonStyleKey" 
-                   TargetType="Button">
-                <Setter Property="Margin"
-                        Value="8,0,8,0"/>
-            </Style>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -88,17 +168,18 @@
         </Label>
         <ListView Grid.Row="1"
                   ItemsSource="{Binding Path=BookShelves}"
-                  ItemContainerStyle="{StaticResource BookshelfStyleKey}">
+                  ItemTemplate="{StaticResource BookshelfDataTemplate}"
+                  ItemContainerStyle="{StaticResource IoLibraryListViewItemStyle}">
         </ListView>
         <Border Grid.Row="2"
                 Padding="8">
             <DockPanel>
                 <Button DockPanel.Dock="Right"
                         Style="{StaticResource LibraryButtonStyleKey}"
-                        Content="Delete Selected"/>
+                        Content="Delete Selected Bookshelf"/>
                 <Button DockPanel.Dock="Right"
                         Style="{StaticResource LibraryButtonStyleKey}"
-                        Content="Add new one"/>
+                        Content="Add New Bookshelf"/>
                 <StackPanel></StackPanel>
             </DockPanel>
         </Border>
