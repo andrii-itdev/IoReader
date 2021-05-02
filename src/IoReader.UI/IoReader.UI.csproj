@@ -55,6 +55,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="General.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddNewBook.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\BookInformationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -78,9 +86,13 @@
     <Compile Include="Mediators\ContentMediator.cs" />
     <Compile Include="Mediators\IHasContentMediator.cs" />
     <Compile Include="Selectors\ViewTemplateSelector.cs" />
+    <Compile Include="ViewModels\ContentViewModels\AddNewBookViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\WindowContentViewModel.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="Views\AddNewBook.xaml.cs">
+      <DependentUpon>AddNewBook.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\BookInformationPage.xaml.cs">
       <DependentUpon>BookInformationPage.xaml</DependentUpon>
     </Compile>

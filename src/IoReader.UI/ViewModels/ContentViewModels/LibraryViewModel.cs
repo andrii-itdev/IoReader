@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using IoReader.Mediators;
 using IoReader.Models;
 
-namespace IoReader.ViewModels
+namespace IoReader.ViewModels.ContentViewModels
 {
     public class LibraryViewModel : ViewModelBase, IContentViewModel, IHasContentMediator
     {

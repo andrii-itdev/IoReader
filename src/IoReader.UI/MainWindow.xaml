@@ -7,6 +7,7 @@
         xmlns:selectors="clr-namespace:IoReader.Selectors"
         xmlns:viewModels="clr-namespace:IoReader.ViewModels"
         xmlns:views="clr-namespace:IoReader.Views"
+        xmlns:contentViewModels="clr-namespace:IoReader.ViewModels.ContentViewModels"
         mc:Ignorable="d"
         Title="MainWindow" 
         WindowStartupLocation="CenterScreen"
@@ -14,7 +15,7 @@
         Width="800">
     <Window.Resources>
         <DataTemplate x:Key="BookContentTemplate" 
-                      DataType="{x:Type viewModels:BookViewModel}">
+                      DataType="{x:Type contentViewModels:BookViewModel}">
             <Grid>
                 <TextBlock Text="My Book"
                            HorizontalAlignment="Center"
@@ -24,7 +25,7 @@
         </DataTemplate>
 
         <DataTemplate x:Key="BookInformationTemplate" 
-                      DataType="{x:Type viewModels:BookInformationViewModel}">
+                      DataType="{x:Type contentViewModels:BookInformationViewModel}">
             <Grid>
                 <TextBlock Text="Book Information"
                            HorizontalAlignment="Center"
@@ -34,14 +35,20 @@
         </DataTemplate>
 
         <DataTemplate x:Key="LibraryTemplate" 
-                      DataType="{x:Type viewModels:LibraryViewModel}">
+                      DataType="{x:Type contentViewModels:LibraryViewModel}">
             <views:Library></views:Library>
+        </DataTemplate>
+
+        <DataTemplate x:Key="AddNewBookTemplate"
+                      DataType="{x:Type contentViewModels:AddNewBookViewModel}">
+            <views:AddNewBook></views:AddNewBook>
         </DataTemplate>
 
         <selectors:ViewTemplateSelector x:Key="ContentViewTemplateSelector" 
                                         BookContentTemplate="{StaticResource BookContentTemplate}"
                                         BookInformationTemplate="{StaticResource BookInformationTemplate}"
-                                        LibraryTemplate="{StaticResource LibraryTemplate}" />
+                                        LibraryTemplate="{StaticResource LibraryTemplate}"
+                                        AddNewBookTemplate="{StaticResource AddNewBookTemplate}"/>
     </Window.Resources>
 
     <DockPanel DataContext="{Binding Path=IoWindow}">

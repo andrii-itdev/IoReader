@@ -3,7 +3,7 @@ using System.Windows.Input;
 using IoReader.Mediators;
 using IoReader.Models;
 
-namespace IoReader.ViewModels
+namespace IoReader.ViewModels.ContentViewModels
 {
     public class BookViewModel : ViewModelBase, IContentViewModel, IHasContentMediator
     { 

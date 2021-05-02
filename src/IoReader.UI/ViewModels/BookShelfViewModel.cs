@@ -1,13 +1,17 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using IoReader.Commands;
 using IoReader.Mediators;
 using IoReader.Models;
+using IoReader.ViewModels.ContentViewModels;
 
 namespace IoReader.ViewModels
 {
     public class BookShelfViewModel : ViewModelBase, IHasContentMediator
     {
         public ICommand AddBookCommand { get; set; }
+
+        public ICommand RemoveBookCommand { get; set; }
 
         public ICommand MoveUpTheListCommand { get; set; }
 
@@ -27,6 +31,21 @@ namespace IoReader.ViewModels
         public BookShelfViewModel(ContentMediator mediator)
         {
             this.Mediator = mediator;
+            AddBookCommand = new RelayCommand(OnAddNewBookExecute);
+            RemoveBookCommand = new RelayCommand(OnRemoveBookExecute);
+        }
+
+        private void OnRemoveBookExecute(object obj)
+        {
+            if (obj is BookInformationViewModel bookInformation)
+            {
+                this.BooksInfos.Remove(bookInformation);
+            }
+        }
+
+        private void OnAddNewBookExecute(object obj)
+        {
+            this.Mediator.Navigate(new AddNewBookViewModel(Mediator));
         }
     }
 }

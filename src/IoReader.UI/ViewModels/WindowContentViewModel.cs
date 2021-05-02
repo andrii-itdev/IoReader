@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using IoReader.Commands;
 using IoReader.Mediators;
+using IoReader.ViewModels.ContentViewModels;
 
 namespace IoReader.ViewModels
 {

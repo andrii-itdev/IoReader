@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using IoReader.ViewModels;
+using IoReader.ViewModels.ContentViewModels;
 
 namespace IoReader.Selectors
 {
@@ -9,6 +9,7 @@ namespace IoReader.Selectors
         public DataTemplate LibraryTemplate { get; set; }
         public DataTemplate BookInformationTemplate { get; set; }
         public DataTemplate BookContentTemplate { get; set; }
+        public DataTemplate AddNewBookTemplate { get; set; }
 
         public ViewTemplateSelector()
         {
@@ -24,6 +25,8 @@ namespace IoReader.Selectors
                     return BookInformationTemplate;
                 case BookViewModel _:
                     return BookContentTemplate;
+                case AddNewBookViewModel _:
+                    return AddNewBookTemplate;
                 default:
                     return base.SelectTemplate(item, container);
             }
