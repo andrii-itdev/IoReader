@@ -59,8 +59,7 @@
                     FontWeight="Bold"
                     Padding="10"
                     Content="Io" 
-                    Command="{Binding Path=CollapseRevealBookCommand}"
-                    CommandParameter="{Binding Path=ContentVm}">
+                    Command="{Binding Path=CollapseRevealBookCommand}">
             </Button>
             
             <Grid>

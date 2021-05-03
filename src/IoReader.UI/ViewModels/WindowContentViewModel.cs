@@ -11,9 +11,12 @@ namespace IoReader.ViewModels
 
         public ContentMediator Mediator { get; protected set; }
 
-        private readonly LibraryViewModel _libraryVm;
-        private readonly BookInformationViewModel _bookInfoVm;
-        private readonly BookViewModel _bookVm;
+        private IContentViewModel lastContentViewModel;
+
+        private LibraryViewModel _libraryVm;
+        private BookInformationViewModel _bookInfoVm;
+        private BookViewModel _bookVm;
+        private AddNewBookViewModel _addNewBookViewModel;
 
         public ICommand CollapseRevealBookCommand { get; set; }
 
@@ -30,27 +33,75 @@ namespace IoReader.ViewModels
         public WindowContentViewModel(ContentMediator contentMediator)
         {
             this.Mediator = contentMediator;
+
             this._libraryVm = new LibraryViewModel(contentMediator);
             this._bookInfoVm = new BookInformationViewModel(contentMediator);
             this._bookVm = new BookViewModel(contentMediator);
-            this.ContentVm = _libraryVm;
+            this._addNewBookViewModel = new AddNewBookViewModel(contentMediator);
+
+            this.ContentVm = _bookVm;
             this.CollapseRevealBookCommand = new RelayCommand(OnCollapseRevealBookExecute);
             this.Mediator.NavigationEvent += MediatorOnNavigate;
-            this._bookInfoVm.IoButtonTransitionTarget = _bookVm;
-            this._libraryVm.IoButtonTransitionTarget = _bookVm;
-            this._bookVm.IoButtonTransitionTarget = _libraryVm;
+            this.Mediator.AddNewBookEvent += MediatorOnAddNewBook;
+            this.Mediator.NavigateLastEvent += MediatorOnNavigateLast;
+            this.Mediator.NavigateBookEvent += MediatorOnNavigateBook;
+            Mediator.Navigate(_libraryVm);
+        }
+
+        private void MediatorOnNavigateBook()
+        {
+            this.Mediator.Navigate(this._bookVm);
+        }
+
+        private void MediatorOnNavigateLast()
+        {
+            this.Mediator.Navigate(this.lastContentViewModel);
+        }
+
+        private void MediatorOnAddNewBook(AddNewBookViewModel obj)
+        {
+            this._libraryVm.DefaultBookShelfViewModel.AddBook(obj);
         }
 
         private void MediatorOnNavigate(IContentViewModel contentViewModel)
         {
-            this.ContentVm = contentViewModel;
+            if (this.ContentVm is BookViewModel bookViewModel)
+            {
+                if (contentViewModel is BookViewModel targetBookViewModel)
+                {
+                    this._bookVm = targetBookViewModel;
+                    this.ContentVm = targetBookViewModel;
+                }
+                else
+                {
+                    this.ContentVm = contentViewModel;
+                }
+            }
+            else
+            {
+                if (contentViewModel is BookViewModel targetBookViewModel)
+                {
+                    this._bookVm = targetBookViewModel;
+                    this.lastContentViewModel = this.ContentVm;
+                    this.ContentVm = targetBookViewModel;
+                }
+                else
+                {
+                    this.lastContentViewModel = this.ContentVm;
+                    this.ContentVm = contentViewModel;
+                }
+            }
         }
 
         private void OnCollapseRevealBookExecute(object contentViewModel)
         {
-            if (contentViewModel is IContentViewModel cvm)
+            if (this.ContentVm is BookViewModel bookViewModel)
             {
-                this.Mediator.Navigate(cvm.IoButtonTransitionTarget);
+                this.Mediator.Navigate(true);
+            }
+            else
+            {
+                this.Mediator.Navigate(false);
             }
         }
     }

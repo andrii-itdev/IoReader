@@ -28,14 +28,49 @@
             <TextBlock Text="Add New Book"/>
         </Label>
 
+        <Border Grid.Row="1" 
+                Background="{StaticResource {x:Static SystemColors.WindowBrushKey}}">
+            <Grid Margin="40,30">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
 
+                <TextBlock Grid.Row="0" Grid.Column="0"
+                           Text="Name" />
+                <TextBox Grid.Row="0" Grid.Column="1"
+                         Text="{Binding Path=Name}"/>
+
+                <TextBlock Grid.Row="1" Grid.Column="0"
+                           Text="Author" />
+                <TextBox Grid.Row="1" Grid.Column="1"
+                         Text="{Binding Path=Author}"/>
+
+                <TextBlock Grid.Row="2" Grid.Column="0"
+                           Text="Year" />
+                <TextBox Grid.Row="2" Grid.Column="1"
+                         Text="{Binding Path=Year}"/>
+
+                <TextBlock Grid.Row="3" Grid.Column="0"
+                           Text="File Path" />
+                <TextBox Grid.Row="3" Grid.Column="1"
+                         Text="{Binding Path=FilePath}"/>
+            </Grid>
+        </Border>
 
         <Border Grid.Row="2"
                 Padding="8">
             <DockPanel>
                 <Button DockPanel.Dock="Right"
                         Style="{StaticResource LibraryButtonStyleKey}"
-                        Content="Delete Selected Bookshelf"/>
+                        Content="Save"
+                        Command="{Binding Path=SaveCommand}" />
                 <StackPanel></StackPanel>
             </DockPanel>
         </Border>

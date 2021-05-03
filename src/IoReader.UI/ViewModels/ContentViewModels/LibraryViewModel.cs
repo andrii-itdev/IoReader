@@ -9,6 +9,8 @@ namespace IoReader.ViewModels.ContentViewModels
     {
         public ObservableCollection<BookShelfViewModel> BookShelves { get; set; }
 
+        public BookShelfViewModel DefaultBookShelfViewModel { get; set; }
+
         public ICommand AddBookShelfCommand { get; set; }
 
         public ICommand ImportBookShelfCommand { get; set; }
@@ -19,8 +21,6 @@ namespace IoReader.ViewModels.ContentViewModels
 
         public LibraryModel Library { get; set; }
 
-        public IContentViewModel IoButtonTransitionTarget { get; set; }
-
         public ContentMediator Mediator { get; protected set; }
 
         public LibraryViewModel(ContentMediator contentMediator)
@@ -28,20 +28,22 @@ namespace IoReader.ViewModels.ContentViewModels
             Mediator = contentMediator;
 
             this.BookShelves = new ObservableCollection<BookShelfViewModel>();
-            var bookInfos = new ObservableCollection<BookInformationViewModel>();
-            bookInfos.Add(new BookInformationViewModel(Mediator)
+
+            this.DefaultBookShelfViewModel = new BookShelfViewModel(Mediator)
             {
-                Title = "An Alborado",
-                Author = "J. J. Abrams",
-                Description = "A cool book about a real city made of diamonds"
-            });
-            this.BookShelves.Add(
-                new BookShelfViewModel(Mediator)
+                Title = "Default"
+            };
+            this.BookShelves.Add(DefaultBookShelfViewModel);
+
+            // Just a test
+            var bookInfos = new ObservableCollection<BookInformationViewModel>();
+            DefaultBookShelfViewModel.AddBook(
+                new BookInformationViewModel(Mediator)
                 {
-                    Title = "Favorite Fiction",
-                    BooksInfos = bookInfos
-                }
-                );
+                    Title = "The Alborado",
+                    Author = "J. J. Abrams",
+                    Description = "A cool book about a real city made of diamonds"
+                });
         }
     }
 }

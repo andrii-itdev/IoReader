@@ -31,6 +31,7 @@ namespace IoReader.ViewModels
         public BookShelfViewModel(ContentMediator mediator)
         {
             this.Mediator = mediator;
+            this.BooksInfos = new ObservableCollection<BookInformationViewModel>();
             AddBookCommand = new RelayCommand(OnAddNewBookExecute);
             RemoveBookCommand = new RelayCommand(OnRemoveBookExecute);
         }
@@ -46,6 +47,25 @@ namespace IoReader.ViewModels
         private void OnAddNewBookExecute(object obj)
         {
             this.Mediator.Navigate(new AddNewBookViewModel(Mediator));
+        }
+
+        public void AddBook(BookInformationViewModel bookInformationViewModel)
+        {
+            this.BooksInfos.Add(bookInformationViewModel);
+        }
+
+        public void AddBook(AddNewBookViewModel newBookViewModel)
+        {
+            AddBook(
+                new BookInformationViewModel(Mediator)
+                {
+                    Author = newBookViewModel.Author,
+                    Title = newBookViewModel.Name,
+                    Year = newBookViewModel.Year
+                    // File Path
+                    // Description
+                }
+                );
         }
     }
 }

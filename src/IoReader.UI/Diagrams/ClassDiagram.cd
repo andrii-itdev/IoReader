@@ -10,18 +10,7 @@
       <Property Name="BookmarkModel" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="IoReader.ViewModels.BookShelfViewModel">
-    <Position X="17" Y="3.75" Width="2.25" />
-    <TypeIdentifier>
-      <HashCode>AEAAAEAAAEAAAMAAAAAQAAAACAAAAAAAAAAAAEQAAAA=</HashCode>
-      <FileName>ViewModels\BookShelfViewModel.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Bookshelf" />
-    </ShowAsAssociation>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="IoReader.ViewModels.BookInformationViewModel">
+  <Class Name="IoReader.ViewModels.ContentViewModels.BookInformationViewModel">
     <Position X="6.25" Y="3.75" Width="2.75" />
     <InheritanceLine Type="IoReader.ViewModels.ViewModelBase" ManuallyRouted="true">
       <Path>
@@ -32,7 +21,7 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>ABAAgACQBABiAEBAgAAIAAEASAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAgACQBABiAEBAgAAIAAEASAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\ContentViewModels\BookInformationViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -40,7 +29,7 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="IoReader.ViewModels.BookViewModel">
+  <Class Name="IoReader.ViewModels.ContentViewModels.BookViewModel">
     <Position X="1.5" Y="3.75" Width="2" />
     <InheritanceLine Type="IoReader.ViewModels.ViewModelBase" ManuallyRouted="true">
       <Path>
@@ -51,7 +40,7 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAAEAAABAAAAAAAAACAAAAAAAIAEAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAEAAABAAAAAAAAACAAAAAAAIAEAAAAAAAA=</HashCode>
       <FileName>ViewModels\ContentViewModels\BookViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -59,7 +48,7 @@
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="IoReader.ViewModels.LibraryViewModel">
+  <Class Name="IoReader.ViewModels.ContentViewModels.LibraryViewModel">
     <Position X="3.75" Y="3.75" Width="2.25" />
     <InheritanceLine Type="IoReader.ViewModels.ViewModelBase" ManuallyRouted="true">
       <Path>
@@ -70,7 +59,7 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAAACAAAACAAAIAAACAAAAAAAAABAEAAAAAI=</HashCode>
+      <HashCode>AAAAAAAAAAACAAAACAAAIAAACAAAAAAAAgBAEAAAAAI=</HashCode>
       <FileName>ViewModels\ContentViewModels\LibraryViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -108,7 +97,7 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAACAAIAAAAIAAJAAAAAAAAACQAAAAAAAAAAAAASAAA=</HashCode>
+      <HashCode>AAACACIAEAAIAAJAAAAAAAECCQAAAAAAAAAAgAASAAA=</HashCode>
       <FileName>ViewModels\WindowContentViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -129,10 +118,21 @@
     <Position X="3.75" Y="8.5" Width="2.25" />
     <TypeIdentifier />
   </Class>
+  <Class Name="IoReader.ViewModels.BookShelfViewModel">
+    <Position X="17" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AEAAAEAAAkAAAMAAACAQBAAACAAAAAAAAACAAEQAAAA=</HashCode>
+      <FileName>ViewModels\BookShelfViewModel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Bookshelf" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
   <Interface Name="IoReader.ViewModels.IContentViewModel" Collapsed="true">
     <Position X="4" Y="2" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>ABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\IContentViewModel.cs</FileName>
     </TypeIdentifier>
   </Interface>
