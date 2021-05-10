@@ -231,5 +231,81 @@ namespace UnitTests
         }
 
         #endregion
+
+        #region TestNavigateBook
+
+        private static object[] NavigateToBookTestData(
+            WindowContentViewModel windowContentViewModel,
+            IEnumerable<IContentViewModel> navigationSequence,
+            IContentViewModel lastContentViewModel)
+        {
+            foreach (IContentViewModel contentViewModel in navigationSequence)
+            {
+                windowContentViewModel.Mediator.Navigate(contentViewModel);
+            }
+
+            return new object[]
+            {
+                windowContentViewModel, windowContentViewModel.ContentVm,
+                new NavigateExpectedResult()
+                {
+                    ContentViewModel = windowContentViewModel.BookVm,
+                    BookViewModel = windowContentViewModel.BookVm,
+                    LastContentViewModel = lastContentViewModel
+                }
+            };
+        }
+
+        public static IEnumerable<object[]> NavigateToBookContentViewModelTestData
+        {
+            get
+            {
+                IContentMediator contentMediator = new ContentMediator();
+                var windowContentViewModel = new WindowContentViewModel(contentMediator);
+
+                yield return NavigateToBookTestData(windowContentViewModel,
+                    new IContentViewModel[] { windowContentViewModel.BookInfoVm, windowContentViewModel.LibraryVm },
+                    windowContentViewModel.LibraryVm);
+
+                yield return NavigateToBookTestData(windowContentViewModel,
+                    new IContentViewModel[] { windowContentViewModel.BookInfoVm, windowContentViewModel.BookVm },
+                    windowContentViewModel.BookInfoVm);
+
+                yield return NavigateToBookTestData(windowContentViewModel,
+                    new IContentViewModel[] { windowContentViewModel.LibraryVm, windowContentViewModel.BookInfoVm },
+                    windowContentViewModel.BookInfoVm);
+
+                yield return NavigateToBookTestData(windowContentViewModel,
+                    new IContentViewModel[] { windowContentViewModel.LibraryVm, windowContentViewModel.BookVm },
+                    windowContentViewModel.LibraryVm);
+
+                yield return NavigateToBookTestData(windowContentViewModel,
+                    new IContentViewModel[] { windowContentViewModel.BookVm, windowContentViewModel.LibraryVm },
+                    windowContentViewModel.LibraryVm);
+
+                yield return NavigateToBookTestData(windowContentViewModel,
+                    new IContentViewModel[] { windowContentViewModel.BookVm, windowContentViewModel.BookInfoVm },
+                    windowContentViewModel.BookInfoVm);
+            }
+        }
+
+        [TestMethod]
+        [DynamicData("NavigateToBookContentViewModelTestData", DynamicDataSourceType.Property)]
+        public void TestNavigationToBookContentViewModel(
+            WindowContentViewModel windowContentViewModel,
+            IHasContentMediator hasMediator,
+            NavigateExpectedResult navigateExpectedResult
+        )
+        {
+            // Arrange
+
+            // Act
+            hasMediator.Mediator.NavigateBook();
+
+            // Assert
+            NavigationMakeAssertion(windowContentViewModel, navigateExpectedResult);
+        }
+
+        #endregion
     }
 }
