@@ -12,7 +12,7 @@ namespace IoReader.ViewModels.ContentViewModels
 {
     public class AddNewBookViewModel : ViewModelBase, IContentViewModel, IHasContentMediator
     {
-        public ContentMediator Mediator { get; protected set; }
+        public IContentMediator Mediator { get; protected set; }
 
         public string Name { get; set; }
         public string Author { get; set; }
@@ -21,7 +21,7 @@ namespace IoReader.ViewModels.ContentViewModels
 
         public ICommand SaveCommand { get; set; }
 
-        public AddNewBookViewModel(ContentMediator contentMediator)
+        public AddNewBookViewModel(IContentMediator contentMediator)
         {
             this.Mediator = contentMediator;
             SaveCommand = new RelayCommand(OnSaveNewBookExecute);

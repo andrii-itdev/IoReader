@@ -26,9 +26,9 @@ namespace IoReader.ViewModels
         public BookshelfModel Bookshelf { get; set; }
 
         public string Title { get; set; }
-        public ContentMediator Mediator { get; protected set; }
+        public IContentMediator Mediator { get; protected set; }
 
-        public BookShelfViewModel(ContentMediator mediator)
+        public BookShelfViewModel(IContentMediator mediator)
         {
             this.Mediator = mediator;
             this.BooksInfos = new ObservableCollection<BookInformationViewModel>();

@@ -9,15 +9,15 @@ namespace IoReader.ViewModels.ContentViewModels
     { 
         public ObservableCollection<ICommand> BookActionsCommands { get; set; }
 
-        public int SaveBookCommand { get; set; }
+        public ICommand SaveBookCommand { get; set; }
 
-        public int AddBookmarkCommand { get; set; }
+        public ICommand AddBookmarkCommand { get; set; }
 
         public BookModel Book { get; set; }
 
-        public ContentMediator Mediator { get; protected set; }
+        public IContentMediator Mediator { get; protected set; }
 
-        public BookViewModel(ContentMediator contentMediator)
+        public BookViewModel(IContentMediator contentMediator)
         {
             Mediator = contentMediator;
         }

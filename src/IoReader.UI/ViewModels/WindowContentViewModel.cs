@@ -9,14 +9,14 @@ namespace IoReader.ViewModels
     {
         private IContentViewModel _contentView;
 
-        public ContentMediator Mediator { get; protected set; }
+        public IContentMediator Mediator { get; protected set; }
 
-        private IContentViewModel lastContentViewModel;
+        public IContentViewModel LastContentViewModel { get; protected set; }
 
-        private LibraryViewModel _libraryVm;
-        private BookInformationViewModel _bookInfoVm;
-        private BookViewModel _bookVm;
-        private AddNewBookViewModel _addNewBookViewModel;
+        public LibraryViewModel LibraryVm { get; protected set; }
+        public BookInformationViewModel BookInfoVm { get; protected set; }
+        public BookViewModel BookVm { get; protected set; }
+        public AddNewBookViewModel AddNewBookViewModel { get; protected set; }
 
         public ICommand CollapseRevealBookCommand { get; set; }
 
@@ -30,37 +30,38 @@ namespace IoReader.ViewModels
             }
         }
 
-        public WindowContentViewModel(ContentMediator contentMediator)
+        public WindowContentViewModel(IContentMediator contentMediator)
         {
             this.Mediator = contentMediator;
 
-            this._libraryVm = new LibraryViewModel(contentMediator);
-            this._bookInfoVm = new BookInformationViewModel(contentMediator);
-            this._bookVm = new BookViewModel(contentMediator);
-            this._addNewBookViewModel = new AddNewBookViewModel(contentMediator);
+            this.LibraryVm = new LibraryViewModel(contentMediator);
+            this.BookInfoVm = new BookInformationViewModel(contentMediator);
+            this.BookVm = new BookViewModel(contentMediator);
+            this.AddNewBookViewModel = new AddNewBookViewModel(contentMediator);
 
-            this.ContentVm = _bookVm;
+            this.ContentVm = BookVm;
             this.CollapseRevealBookCommand = new RelayCommand(OnCollapseRevealBookExecute);
             this.Mediator.NavigationEvent += MediatorOnNavigate;
             this.Mediator.AddNewBookEvent += MediatorOnAddNewBook;
             this.Mediator.NavigateLastEvent += MediatorOnNavigateLast;
             this.Mediator.NavigateBookEvent += MediatorOnNavigateBook;
-            Mediator.Navigate(_libraryVm);
+
+            Mediator.Navigate(LibraryVm);
         }
 
         private void MediatorOnNavigateBook()
         {
-            this.Mediator.Navigate(this._bookVm);
+            this.Mediator.Navigate(this.BookVm);
         }
 
         private void MediatorOnNavigateLast()
         {
-            this.Mediator.Navigate(this.lastContentViewModel);
+            this.Mediator.Navigate(this.LastContentViewModel);
         }
 
         private void MediatorOnAddNewBook(AddNewBookViewModel obj)
         {
-            this._libraryVm.DefaultBookShelfViewModel.AddBook(obj);
+            this.LibraryVm.DefaultBookShelfViewModel.AddBook(obj);
         }
 
         private void MediatorOnNavigate(IContentViewModel contentViewModel)
@@ -69,7 +70,7 @@ namespace IoReader.ViewModels
             {
                 if (contentViewModel is BookViewModel targetBookViewModel)
                 {
-                    this._bookVm = targetBookViewModel;
+                    this.BookVm = targetBookViewModel;
                     this.ContentVm = targetBookViewModel;
                 }
                 else
@@ -81,13 +82,13 @@ namespace IoReader.ViewModels
             {
                 if (contentViewModel is BookViewModel targetBookViewModel)
                 {
-                    this._bookVm = targetBookViewModel;
-                    this.lastContentViewModel = this.ContentVm;
+                    this.BookVm = targetBookViewModel;
+                    this.LastContentViewModel = this.ContentVm;
                     this.ContentVm = targetBookViewModel;
                 }
                 else
                 {
-                    this.lastContentViewModel = this.ContentVm;
+                    this.LastContentViewModel = this.ContentVm;
                     this.ContentVm = contentViewModel;
                 }
             }

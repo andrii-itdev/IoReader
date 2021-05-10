@@ -21,9 +21,9 @@ namespace IoReader.ViewModels.ContentViewModels
 
         public LibraryModel Library { get; set; }
 
-        public ContentMediator Mediator { get; protected set; }
+        public IContentMediator Mediator { get; protected set; }
 
-        public LibraryViewModel(ContentMediator contentMediator)
+        public LibraryViewModel(IContentMediator contentMediator)
         {
             Mediator = contentMediator;
 

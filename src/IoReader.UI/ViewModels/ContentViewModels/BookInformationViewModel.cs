@@ -35,9 +35,9 @@ namespace IoReader.ViewModels.ContentViewModels
         public BookModel Book { get; set; }
 
 
-        public ContentMediator Mediator { get; protected set; }
+        public IContentMediator Mediator { get; protected set; }
 
-        public BookInformationViewModel(ContentMediator contentMediator)
+        public BookInformationViewModel(IContentMediator contentMediator)
         {
             Mediator = contentMediator;
         }

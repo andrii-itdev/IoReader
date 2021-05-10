@@ -15,7 +15,7 @@ namespace IoReader.ViewModels
 
         public WindowContentViewModel IoWindow { get; set; }
 
-        public ContentMediator Mediator { get; protected set; }
+        public IContentMediator Mediator { get; protected set; }
 
         #endregion
 

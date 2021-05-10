@@ -2,6 +2,6 @@
 {
     public interface IHasContentMediator
     {
-        ContentMediator Mediator { get; }
+        IContentMediator Mediator { get; }
     }
 }
