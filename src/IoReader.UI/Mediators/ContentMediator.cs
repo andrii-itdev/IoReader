@@ -17,7 +17,8 @@ namespace IoReader.Mediators
 
         void Navigate(IContentViewModel contentViewModel);
 
-        void Navigate(bool last);
+        void NavigateLast();
+        void NavigateBook();
 
         void TriggerAddNewBook(AddNewBookViewModel addNewBookViewModel);
     }
@@ -36,10 +37,14 @@ namespace IoReader.Mediators
             NavigationEvent?.Invoke(contentViewModel);
         }
 
-        public void Navigate(bool last = true)
+        public void NavigateLast()
         {
-            if (last) NavigateLastEvent?.Invoke();
-            else NavigateBookEvent?.Invoke();
+            NavigateLastEvent?.Invoke();
+        }
+
+        public void NavigateBook()
+        {
+            NavigateBookEvent?.Invoke();
         }
 
         public void TriggerAddNewBook(AddNewBookViewModel addNewBookViewModel)

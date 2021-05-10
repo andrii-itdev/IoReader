@@ -10,12 +10,33 @@ namespace UnitTests
     [TestClass]
     public class UnitTests
     {
+        #region EnclosedClasses
+
+        /// <summary>
+        /// This class represents bundled expected results for navigation tests
+        /// </summary>
         public class NavigateExpectedResult
         {
             public IContentViewModel ContentViewModel { get; set; }
             public BookViewModel BookViewModel { get; set; }
             public IContentViewModel LastContentViewModel { get; set; }
         }
+
+        #endregion
+
+        #region AuxiliaryMethods
+
+        private static void NavigationMakeAssertion(WindowContentViewModel windowContentViewModel,
+            NavigateExpectedResult navigateExpectedResult)
+        {
+            Assert.AreSame(windowContentViewModel.ContentVm, navigateExpectedResult.ContentViewModel);
+            Assert.AreSame(windowContentViewModel.BookVm, navigateExpectedResult.BookViewModel);
+            Assert.AreSame(windowContentViewModel.LastContentViewModel, navigateExpectedResult.LastContentViewModel);
+        }
+
+        #endregion
+
+        #region TestNavigate
 
         private static object[] NavigateFromAnyToBookTestData(WindowContentViewModel windowContentViewModel)
         { 
@@ -60,7 +81,7 @@ namespace UnitTests
                 {
                     ContentViewModel = targetContentViewModel,
                     BookViewModel = windowContentViewModel.BookVm,
-                    LastContentViewModel = windowContentViewModel.LastContentViewModel
+                    LastContentViewModel = windowContentViewModel.ContentVm
                 }
             };
 
@@ -77,7 +98,7 @@ namespace UnitTests
                 {
                     ContentViewModel = targetContentViewModel,
                     BookViewModel = windowContentViewModel.BookVm,
-                    LastContentViewModel = windowContentViewModel.ContentVm
+                    LastContentViewModel = windowContentViewModel.LastContentViewModel
                 }
             };
         }
@@ -127,9 +148,88 @@ namespace UnitTests
             hasMediator.Mediator.Navigate(navigationTargetContentViewModel);
 
             // Assert
-            Assert.AreSame(windowContentViewModel.ContentVm, navigateExpectedResult.ContentViewModel);
-            Assert.AreSame(windowContentViewModel.BookVm, navigateExpectedResult.BookViewModel);
-            Assert.AreSame(windowContentViewModel.LastContentViewModel, navigateExpectedResult.LastContentViewModel);
+            NavigationMakeAssertion(windowContentViewModel, navigateExpectedResult);
         }
+
+        #endregion
+
+        #region TestNavigateLast
+
+        private static object[] NavigateToLastTestData(
+            WindowContentViewModel windowContentViewModel, 
+            IEnumerable<IContentViewModel> navigationSequence,
+            IContentViewModel expectedLastContentViewModel)
+        {
+            IContentViewModel lastContentViewModel = null;
+            foreach (IContentViewModel contentViewModel in navigationSequence)
+            {
+                windowContentViewModel.Mediator.Navigate(contentViewModel);
+                lastContentViewModel = contentViewModel;
+            }
+
+            return new object[]
+            {
+                windowContentViewModel, windowContentViewModel.ContentVm,
+                new NavigateExpectedResult()
+                {
+                    ContentViewModel = expectedLastContentViewModel, 
+                    BookViewModel = windowContentViewModel.BookVm,
+                    LastContentViewModel = lastContentViewModel
+                    // After NavigateLast expectedLastContentViewModel and lastContentViewModel will be swapped
+                }
+            };
+        }
+
+        public static IEnumerable<object[]> NavigateToLastContentViewModelTestData
+        {
+            get
+            {
+                IContentMediator contentMediator = new ContentMediator();
+                var windowContentViewModel = new WindowContentViewModel(contentMediator);
+
+                yield return NavigateToLastTestData(windowContentViewModel, 
+                    new IContentViewModel[] { windowContentViewModel.BookVm, windowContentViewModel.LibraryVm, windowContentViewModel.LibraryVm },
+                    windowContentViewModel.BookVm);
+
+                yield return NavigateToLastTestData(windowContentViewModel,
+                    new IContentViewModel[] { windowContentViewModel.BookVm, windowContentViewModel.LibraryVm, windowContentViewModel.BookVm },
+                    windowContentViewModel.LibraryVm);
+
+                yield return NavigateToLastTestData(windowContentViewModel,
+                    new IContentViewModel[] { windowContentViewModel.BookVm, windowContentViewModel.BookVm, windowContentViewModel.LibraryVm },
+                    windowContentViewModel.BookVm);
+
+                yield return NavigateToLastTestData(windowContentViewModel,
+                    new IContentViewModel[] { windowContentViewModel.LibraryVm, windowContentViewModel.LibraryVm, windowContentViewModel.BookVm },
+                    windowContentViewModel.LibraryVm);
+
+                yield return NavigateToLastTestData(windowContentViewModel,
+                    new IContentViewModel[] { windowContentViewModel.LibraryVm, windowContentViewModel.BookVm, windowContentViewModel.LibraryVm },
+                    windowContentViewModel.BookVm);
+
+                yield return NavigateToLastTestData(windowContentViewModel,
+                    new IContentViewModel[] { windowContentViewModel.LibraryVm, windowContentViewModel.BookVm, windowContentViewModel.BookVm },
+                    windowContentViewModel.LibraryVm);
+            }
+        }
+
+        [TestMethod]
+        [DynamicData("NavigateToLastContentViewModelTestData", DynamicDataSourceType.Property)]
+        public void TestNavigationToLastContentViewModel(
+            WindowContentViewModel windowContentViewModel,
+            IHasContentMediator hasMediator,
+            NavigateExpectedResult navigateExpectedResult
+        )
+        {
+            // Arrange
+
+            // Act
+            hasMediator.Mediator.NavigateLast();
+
+            // Assert
+            NavigationMakeAssertion(windowContentViewModel, navigateExpectedResult);
+        }
+
+        #endregion
     }
 }

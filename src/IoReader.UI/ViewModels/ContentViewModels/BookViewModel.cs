@@ -1,11 +1,12 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using IoReader.Mediators;
 using IoReader.Models;
 
 namespace IoReader.ViewModels.ContentViewModels
 {
-    public class BookViewModel : ViewModelBase, IContentViewModel, IHasContentMediator
+    public class BookViewModel : ViewModelBase, IContentViewModel, IHasContentMediator, IDisposable
     { 
         public ObservableCollection<ICommand> BookActionsCommands { get; set; }
 
@@ -20,6 +21,11 @@ namespace IoReader.ViewModels.ContentViewModels
         public BookViewModel(IContentMediator contentMediator)
         {
             Mediator = contentMediator;
+        }
+
+        public void Dispose()
+        {
+            // Close the resource
         }
     }
 }

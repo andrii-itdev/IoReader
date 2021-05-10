@@ -64,17 +64,34 @@ namespace IoReader.ViewModels
             this.LibraryVm.DefaultBookShelfViewModel.AddBook(obj);
         }
 
+        private void UpdateBook(BookViewModel targetBookViewModel)
+        {
+            if (!this.BookVm.Equals(targetBookViewModel))
+            {
+                this.BookVm.Dispose();
+                this.BookVm = targetBookViewModel;
+            }
+        }
+
         private void MediatorOnNavigate(IContentViewModel contentViewModel)
         {
+            // If current VM is opened book, then lastVM is any ContentVM but not book.
+            // If current VM is NOT book, then lastVM is last opened book.
+            // If new contentVM is a new book, then the previous book will be closed and overriden by new one.
+
             if (this.ContentVm is BookViewModel bookViewModel)
             {
                 if (contentViewModel is BookViewModel targetBookViewModel)
                 {
-                    this.BookVm = targetBookViewModel;
+                    UpdateBook(targetBookViewModel);
+
                     this.ContentVm = targetBookViewModel;
                 }
                 else
                 {
+                    // Saving last opened book
+                    this.LastContentViewModel = this.ContentVm;
+
                     this.ContentVm = contentViewModel;
                 }
             }
@@ -82,13 +99,15 @@ namespace IoReader.ViewModels
             {
                 if (contentViewModel is BookViewModel targetBookViewModel)
                 {
-                    this.BookVm = targetBookViewModel;
+                    UpdateBook(targetBookViewModel);
+
+                    // Saving last vm for "Io" button
                     this.LastContentViewModel = this.ContentVm;
+
                     this.ContentVm = targetBookViewModel;
                 }
                 else
                 {
-                    this.LastContentViewModel = this.ContentVm;
                     this.ContentVm = contentViewModel;
                 }
             }
@@ -98,11 +117,11 @@ namespace IoReader.ViewModels
         {
             if (this.ContentVm is BookViewModel bookViewModel)
             {
-                this.Mediator.Navigate(true);
+                this.Mediator.NavigateLast();
             }
             else
             {
-                this.Mediator.Navigate(false);
+                this.Mediator.NavigateBook();
             }
         }
     }

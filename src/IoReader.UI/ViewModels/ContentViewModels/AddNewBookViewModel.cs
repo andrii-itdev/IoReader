@@ -30,7 +30,7 @@ namespace IoReader.ViewModels.ContentViewModels
         private void OnSaveNewBookExecute(object obj)
         {
             this.Mediator.TriggerAddNewBook(this);
-            this.Mediator.Navigate(true);
+            this.Mediator.NavigateLast();
         }
     }
 }
