@@ -56,16 +56,17 @@ namespace IoReader.ViewModels
 
         public void AddBook(AddNewBookViewModel newBookViewModel)
         {
-            AddBook(
-                new BookInformationViewModel(Mediator)
-                {
-                    Author = newBookViewModel.Author,
-                    Title = newBookViewModel.Name,
-                    Year = newBookViewModel.Year
-                    // File Path
-                    // Description
-                }
-                );
+            AddBook( new BookInformationViewModel(Mediator, newBookViewModel));
+        }
+
+        public bool Has(BookInformationViewModel bookInformation)
+        {
+            foreach (BookInformationViewModel booksInfo in BooksInfos)
+            {
+                if (booksInfo.Equals(bookInformation)) return true;
+            }
+
+            return false;
         }
     }
 }

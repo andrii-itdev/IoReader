@@ -21,7 +21,7 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAgACQBABiAEBAgAAIAAEASAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAgACQBABiAEBAgAAIAAEASAAAAIAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\ContentViewModels\BookInformationViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -40,7 +40,7 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAEAAABAAAAAAAAACAAAAAAAIAEAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAACEAAABAAAAAAAAACAAAAAAAIAEAAAAAAAA=</HashCode>
       <FileName>ViewModels\ContentViewModels\BookViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -97,7 +97,7 @@
       </Path>
     </InheritanceLine>
     <TypeIdentifier>
-      <HashCode>AgACACIAEAAIAABAAAAAAAACCCAAACAAAAIAAAACAAE=</HashCode>
+      <HashCode>BgACACIAEAAIAABAAAAAAAACCCAAACAAIAIAAAACAAE=</HashCode>
       <FileName>ViewModels\WindowContentViewModel.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -121,7 +121,7 @@
   <Class Name="IoReader.ViewModels.BookShelfViewModel">
     <Position X="17" Y="3.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AEAAAEAAAkAAAMAAACAQBAAACAAAAAAAAACAAEQAAAA=</HashCode>
+      <HashCode>AEAAAEAAAkACAMAAACAQBAAACAAAAAAAAACAAEQAAAA=</HashCode>
       <FileName>ViewModels\BookShelfViewModel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

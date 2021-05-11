@@ -8,7 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace UnitTests
 {
     [TestClass]
-    public class UnitTests
+    public class NavigationUnitTests
     {
         #region EnclosedClasses
 
@@ -304,6 +304,63 @@ namespace UnitTests
 
             // Assert
             NavigationMakeAssertion(windowContentViewModel, navigateExpectedResult);
+        }
+
+        #endregion
+
+        #region TestAddNewBook
+
+        public static IEnumerable<object[]> AddNewBookTestData
+        {
+            get
+            {
+                IContentMediator contentMediator = new ContentMediator();
+                Random random = new Random();
+
+                for (int i = 0; i < 8; i++)
+                {
+                    yield return new object[]
+                    {
+                        contentMediator,
+                        new AddNewBookViewModel(contentMediator)
+                        {
+                            Author = Guid.NewGuid().ToString(),
+                            Year = random.Next(),
+                            FilePath = Guid.NewGuid().ToString(),
+                            Name = Guid.NewGuid().ToString(),
+                        }
+                    };
+                }
+            }
+        }
+
+        [TestMethod]
+        [DynamicData("AddNewBookTestData", DynamicDataSourceType.Property)]
+        public void TestAddNewBook(
+            IContentMediator contentMediator,
+            AddNewBookViewModel addNewBookViewModel
+        )
+        {
+            // Arrange
+            var windowContentViewModel = new WindowContentViewModel(contentMediator);
+            IHasContentMediator hasMediator = windowContentViewModel.ContentVm;
+            NavigateExpectedResult navigateExpectedResult = new NavigateExpectedResult()
+            {
+                ContentViewModel = windowContentViewModel.DefaultContentViewModel,
+                BookViewModel = windowContentViewModel.BookVm,
+                LastContentViewModel = (windowContentViewModel.DefaultContentViewModel is BookViewModel)
+                    ? addNewBookViewModel as IContentViewModel
+                    : windowContentViewModel.BookVm as IContentViewModel
+            };
+
+            windowContentViewModel.Mediator.Navigate(addNewBookViewModel);
+
+            // Act
+            hasMediator.Mediator.TriggerAddNewBook(addNewBookViewModel);
+
+            // Assert
+            NavigationMakeAssertion(windowContentViewModel, navigateExpectedResult);
+            Assert.IsTrue(windowContentViewModel.LibraryVm.Has(new BookInformationViewModel(windowContentViewModel.Mediator, addNewBookViewModel)));
         }
 
         #endregion

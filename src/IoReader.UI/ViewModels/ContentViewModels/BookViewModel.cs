@@ -6,7 +6,7 @@ using IoReader.Models;
 
 namespace IoReader.ViewModels.ContentViewModels
 {
-    public class BookViewModel : ViewModelBase, IContentViewModel, IHasContentMediator, IDisposable
+    public class BookViewModel : ViewModelBase, IContentViewModel, IDisposable
     { 
         public ObservableCollection<ICommand> BookActionsCommands { get; set; }
 

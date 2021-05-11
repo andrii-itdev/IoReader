@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 using IoReader.Mediators;
@@ -6,7 +7,7 @@ using IoReader.Models;
 
 namespace IoReader.ViewModels.ContentViewModels
 {
-    public class BookInformationViewModel : ViewModelBase, IContentViewModel, IHasContentMediator
+    public class BookInformationViewModel : ViewModelBase, IContentViewModel, IEquatable<BookInformationViewModel>
     {
         public ICommand OpenLibraryCommand { get; set; }
 
@@ -40,6 +41,42 @@ namespace IoReader.ViewModels.ContentViewModels
         public BookInformationViewModel(IContentMediator contentMediator)
         {
             Mediator = contentMediator;
+        }
+
+        public BookInformationViewModel(IContentMediator contentMediator, AddNewBookViewModel fromAddNewBookViewModel) : this(contentMediator)
+        { 
+            Author = fromAddNewBookViewModel.Author;
+            Title = fromAddNewBookViewModel.Name;
+            Year = fromAddNewBookViewModel.Year;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((BookInformationViewModel) obj);
+        }
+
+        public bool Equals(BookInformationViewModel other)
+        {
+            if (ReferenceEquals(null, other)) return false;
+            if (ReferenceEquals(this, other)) return true;
+            return Title == other.Title && Author == other.Author && Year == other.Year && Description == other.Description && Equals(Picture, other.Picture) && Equals(Bookmarks, other.Bookmarks);
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = (Title != null ? Title.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Author != null ? Author.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ Year;
+                hashCode = (hashCode * 397) ^ (Description != null ? Description.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Picture != null ? Picture.GetHashCode() : 0);
+                hashCode = (hashCode * 397) ^ (Bookmarks != null ? Bookmarks.GetHashCode() : 0);
+                return hashCode;
+            }
         }
     }
 }

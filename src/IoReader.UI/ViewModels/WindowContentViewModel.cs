@@ -18,6 +18,8 @@ namespace IoReader.ViewModels
         public BookViewModel BookVm { get; protected set; }
         public AddNewBookViewModel AddNewBookViewModel { get; protected set; }
 
+        public readonly IContentViewModel DefaultContentViewModel;
+
         public ICommand CollapseRevealBookCommand { get; set; }
 
         public IContentViewModel ContentVm
@@ -38,6 +40,7 @@ namespace IoReader.ViewModels
             this.BookInfoVm = new BookInformationViewModel(contentMediator);
             this.BookVm = new BookViewModel(contentMediator);
             this.AddNewBookViewModel = new AddNewBookViewModel(contentMediator);
+            this.DefaultContentViewModel = LibraryVm;
 
             this.ContentVm = BookVm;
             this.CollapseRevealBookCommand = new RelayCommand(OnCollapseRevealBookExecute);
@@ -46,7 +49,7 @@ namespace IoReader.ViewModels
             this.Mediator.NavigateLastEvent += MediatorOnNavigateLast;
             this.Mediator.NavigateBookEvent += MediatorOnNavigateBook;
 
-            Mediator.Navigate(LibraryVm);
+            this.Mediator.Navigate(DefaultContentViewModel);
         }
 
         private void MediatorOnNavigateBook()
@@ -62,6 +65,7 @@ namespace IoReader.ViewModels
         private void MediatorOnAddNewBook(AddNewBookViewModel obj)
         {
             this.LibraryVm.DefaultBookShelfViewModel.AddBook(obj);
+            this.Mediator.Navigate(DefaultContentViewModel);
         }
 
         private void UpdateBook(BookViewModel targetBookViewModel)

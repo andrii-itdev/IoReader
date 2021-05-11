@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel;
+using IoReader.Mediators;
 
 namespace IoReader.ViewModels
 {
-    public interface IContentViewModel : INotifyPropertyChanged
+    public interface IContentViewModel : IHasContentMediator, INotifyPropertyChanged
     {
     }
 }
