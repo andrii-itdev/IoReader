@@ -1,15 +1,22 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using IoReader.Mediators;
+using System.Linq;
 using IoReader.Models;
+using IoReader.Communication.Mediators;
 
 namespace IoReader.ViewModels.ContentViewModels
 {
-    public class LibraryViewModel : ViewModelBase, IContentViewModel
+    public class LibraryViewModel : ViewModelBase<LibraryModel>, IContentViewModel
     {
-        public ObservableCollection<BookShelfViewModel> BookShelves { get; set; }
-
-        public BookShelfViewModel DefaultBookShelfViewModel { get; set; }
+        public ObservableCollection<BookShelfViewModel> BookShelves
+        {
+            get
+            {
+                return new ObservableCollection<BookShelfViewModel>(
+                    this.UnderlyingModel.Bookshelves.Select(x => new BookShelfViewModel(this.Mediator, x))
+                    );
+            } 
+        }
 
         public ICommand AddBookShelfCommand { get; set; }
 
@@ -19,41 +26,14 @@ namespace IoReader.ViewModels.ContentViewModels
         
         public ObservableCollection<ICommand> LibraryCommands { get; set; }
 
-        public LibraryModel Library { get; set; }
 
         public IContentMediator Mediator { get; protected set; }
 
-        public LibraryViewModel(IContentMediator contentMediator)
+        public LibraryViewModel(IContentMediator contentMediator, LibraryModel model)
         {
             Mediator = contentMediator;
 
-            this.BookShelves = new ObservableCollection<BookShelfViewModel>();
-
-            this.DefaultBookShelfViewModel = new BookShelfViewModel(Mediator)
-            {
-                Title = "Default"
-            };
-            this.BookShelves.Add(DefaultBookShelfViewModel);
-
-            // Just a test
-            var bookInfos = new ObservableCollection<BookInformationViewModel>();
-            DefaultBookShelfViewModel.AddBook(
-                new BookInformationViewModel(Mediator)
-                {
-                    Title = "The Alborado",
-                    Author = "J. J. Abrams",
-                    Description = "A cool book about a real city made of diamonds"
-                });
-        }
-
-        public bool Has(BookInformationViewModel bookInformationViewModel)
-        {
-            foreach (BookShelfViewModel bookShelf in BookShelves)
-            {
-                if (bookShelf.Has(bookInformationViewModel)) return true;
-            }
-
-            return false;
+            this.UnderlyingModel = model;
         }
     }
 }

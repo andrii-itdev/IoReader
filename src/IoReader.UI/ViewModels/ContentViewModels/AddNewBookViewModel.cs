@@ -5,31 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using IoReader.Commands;
-using IoReader.Mediators;
+using IoReader.Communication.Mediators;
 using IoReader.Models;
 
 namespace IoReader.ViewModels.ContentViewModels
 {
-    public class AddNewBookViewModel : ViewModelBase, IContentViewModel
+    public class AddNewBookViewModel : ViewModelBase<BookInformationModel>, IContentViewModel
     {
         public IContentMediator Mediator { get; protected set; }
 
-        public string Name { get; set; }
-        public string Author { get; set; }
-        public int Year { get; set; }
-        public string FilePath { get; set; }
+        public string Title { get { return this.UnderlyingModel.Title; } set { this.UnderlyingModel.Title = value; OnPropertyChanged(); } }
+        public string Author { get { return this.UnderlyingModel.Author; } set { this.UnderlyingModel.Author = value; OnPropertyChanged(); } }
+        public int Year { get { return this.UnderlyingModel.Year; } set { this.UnderlyingModel.Year = value; OnPropertyChanged(); } }
+        public string FilePath { get; set; } // Requires changes
 
         public ICommand SaveCommand { get; set; }
 
-        public AddNewBookViewModel(IContentMediator contentMediator)
+        public AddNewBookViewModel(IContentMediator contentMediator, BookshelfModel onTopOfbookshelfModel)
         {
             this.Mediator = contentMediator;
-            SaveCommand = new RelayCommand(OnSaveNewBookExecute);
+            this.UnderlyingModel = new BookInformationModel(onTopOfbookshelfModel);
+            SaveCommand = new RelayCommand<BookshelfModel>(OnSaveNewBookExecute);
         }
 
-        private void OnSaveNewBookExecute(object obj)
+        private void OnSaveNewBookExecute(BookshelfModel bookshelfWhere)
         {
-            this.Mediator.TriggerAddNewBook(this);
+            this.Mediator.AddNewBook(bookshelfWhere, this.UnderlyingModel);
         }
     }
 }

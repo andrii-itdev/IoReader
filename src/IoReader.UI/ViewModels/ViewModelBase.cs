@@ -12,4 +12,9 @@ namespace IoReader.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
+
+    public abstract class ViewModelBase<T> : ViewModelBase
+    {
+        public T UnderlyingModel { get; protected set; }
+    }
 }

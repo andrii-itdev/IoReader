@@ -3,7 +3,7 @@ using IoReader.Mediators;
 
 namespace IoReader.ViewModels
 {
-    public interface IContentViewModel : IHasContentMediator, INotifyPropertyChanged
+    public interface IContentViewModel : IHasContentMediator
     {
     }
 }

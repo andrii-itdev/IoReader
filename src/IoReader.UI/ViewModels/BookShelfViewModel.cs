@@ -1,13 +1,15 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Linq;
 using IoReader.Commands;
 using IoReader.Mediators;
 using IoReader.Models;
 using IoReader.ViewModels.ContentViewModels;
+using IoReader.Communication.Mediators;
 
 namespace IoReader.ViewModels
 {
-    public class BookShelfViewModel : ViewModelBase, IHasContentMediator
+    public class BookShelfViewModel : ViewModelBase<BookshelfModel>, IHasContentMediator
     {
         public ICommand AddBookCommand { get; set; }
 
@@ -21,17 +23,26 @@ namespace IoReader.ViewModels
 
         public ICommand RemoveBookshelfCommand { get; set; }
 
-        public ObservableCollection<BookInformationViewModel> BooksInfos { get; set; }
-
-        public BookshelfModel Bookshelf { get; set; }
+        public ObservableCollection<BookInformationViewModel> Books
+        {
+            get
+            {
+                return new ObservableCollection<BookInformationViewModel>(
+                    UnderlyingModel.Books.Select(x => new BookInformationViewModel(this.Mediator, x))
+                    );
+            }
+        }
 
         public string Title { get; set; }
         public IContentMediator Mediator { get; protected set; }
 
-        public BookShelfViewModel(IContentMediator mediator)
+        public BookShelfViewModel(IContentMediator mediator, BookshelfModel model)
         {
             this.Mediator = mediator;
-            this.BooksInfos = new ObservableCollection<BookInformationViewModel>();
+            this.UnderlyingModel = model;
+            this.UnderlyingModel.PropertyChanged += (object sender, System.ComponentModel.PropertyChangedEventArgs e) => {
+                this.OnPropertyChanged(e.PropertyName);
+            };
             AddBookCommand = new RelayCommand(OnAddNewBookExecute);
             RemoveBookCommand = new RelayCommand(OnRemoveBookExecute);
         }
@@ -40,33 +51,13 @@ namespace IoReader.ViewModels
         {
             if (obj is BookInformationViewModel bookInformation)
             {
-                this.BooksInfos.Remove(bookInformation);
+                this.Mediator.RemoveBook(bookInformation.UnderlyingModel);
             }
         }
 
         private void OnAddNewBookExecute(object obj)
         {
-            this.Mediator.Navigate(new AddNewBookViewModel(Mediator));
-        }
-
-        public void AddBook(BookInformationViewModel bookInformationViewModel)
-        {
-            this.BooksInfos.Add(bookInformationViewModel);
-        }
-
-        public void AddBook(AddNewBookViewModel newBookViewModel)
-        {
-            AddBook( new BookInformationViewModel(Mediator, newBookViewModel));
-        }
-
-        public bool Has(BookInformationViewModel bookInformation)
-        {
-            foreach (BookInformationViewModel booksInfo in BooksInfos)
-            {
-                if (booksInfo.Equals(bookInformation)) return true;
-            }
-
-            return false;
+            this.Mediator.NavigateAddNewBook(this.UnderlyingModel);
         }
     }
 }

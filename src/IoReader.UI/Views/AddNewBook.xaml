@@ -70,7 +70,8 @@
                 <Button DockPanel.Dock="Right"
                         Style="{StaticResource LibraryButtonStyleKey}"
                         Content="Save"
-                        Command="{Binding Path=SaveCommand}" />
+                        Command="{Binding Path=SaveCommand}"
+                        CommandParameter="{Binding UnderlyingModel.BookshelfModel}"/>
                 <StackPanel></StackPanel>
             </DockPanel>
         </Border>

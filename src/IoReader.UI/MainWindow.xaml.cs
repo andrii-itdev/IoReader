@@ -13,7 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using IoReader.Mediators;
+using IoReader.Communication.Mediators;
+using IoReader.Models.ApplicationData;
 using IoReader.ViewModels;
 
 namespace IoReader
@@ -26,7 +27,9 @@ namespace IoReader
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new ReaderWindowViewModel(new ContentMediator());
+            DataLoader dataLoader = new DataLoader();
+            ContentMediator contentMediator = new ContentMediator(dataLoader);
+            DataContext = new ReaderWindowViewModel(contentMediator);
         }
     }
 }

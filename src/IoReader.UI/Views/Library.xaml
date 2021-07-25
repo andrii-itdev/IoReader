@@ -135,7 +135,7 @@
 
                     <ListView x:Name="BookInfosListView" 
                               Grid.Row="1"
-                              ItemsSource="{Binding Path=BooksInfos}"
+                              ItemsSource="{Binding Path=Books}"
                               ItemContainerStyle="{StaticResource IoLibraryListViewItemStyle}">
                     </ListView>
 

@@ -2,13 +2,17 @@
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
-using IoReader.Mediators;
+using System.Linq;
 using IoReader.Models;
+using IoReader.Communication.Mediators;
 
 namespace IoReader.ViewModels.ContentViewModels
 {
-    public class BookInformationViewModel : ViewModelBase, IContentViewModel, IEquatable<BookInformationViewModel>
+    public class BookInformationViewModel : ViewModelBase<BookInformationModel>, IContentViewModel
     {
+
+        #region Commands
+
         public ICommand OpenLibraryCommand { get; set; }
 
         public ICommand RemoveFromLibraryCommand { get; set; }
@@ -21,62 +25,47 @@ namespace IoReader.ViewModels.ContentViewModels
         
         public ObservableCollection<ICommand> BookInformationActionsCommands { get; set; }
 
-        public string Title { get; set; }
+        #endregion
 
-        public string Author { get; set; }
+        public string Title { get { return UnderlyingModel.Title; } set { UnderlyingModel.Title = value; } }
 
-        public int Year { get; set; }
+        public string Author { get { return UnderlyingModel.Author; } set { UnderlyingModel.Author = value; } }
 
-        public string Description { get; set; }
+        public int Year { get { return UnderlyingModel.Year; } set { UnderlyingModel.Year = value; } }
+
+        public string Description { get { return UnderlyingModel.Description; } set { UnderlyingModel.Description = value; } }
 
         public Image Picture { get; set; }
+        // Needs changes
 
-        public ObservableCollection<BookmarkViewModel> Bookmarks { get; set; }
+        public ObservableCollection<BookmarkViewModel> Bookmarks
+        {
+            get { 
+                return new ObservableCollection<BookmarkViewModel>(
+                    UnderlyingModel.Bookmarks.Select(x => new BookmarkViewModel(x))
+                ); 
+            }
+        }
 
-        public BookModel Book { get; set; }
 
 
         public IContentMediator Mediator { get; protected set; }
 
-        public BookInformationViewModel(IContentMediator contentMediator)
+        protected BookInformationViewModel(IContentMediator contentMediator)
         {
             Mediator = contentMediator;
+        }
+        public BookInformationViewModel(IContentMediator contentMediator, BookInformationModel model) : this(contentMediator)
+        {
+            this.UnderlyingModel = model;
         }
 
         public BookInformationViewModel(IContentMediator contentMediator, AddNewBookViewModel fromAddNewBookViewModel) : this(contentMediator)
         { 
             Author = fromAddNewBookViewModel.Author;
-            Title = fromAddNewBookViewModel.Name;
+            Title = fromAddNewBookViewModel.Title;
             Year = fromAddNewBookViewModel.Year;
         }
 
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((BookInformationViewModel) obj);
-        }
-
-        public bool Equals(BookInformationViewModel other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return Title == other.Title && Author == other.Author && Year == other.Year && Description == other.Description && Equals(Picture, other.Picture) && Equals(Bookmarks, other.Bookmarks);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = (Title != null ? Title.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Author != null ? Author.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ Year;
-                hashCode = (hashCode * 397) ^ (Description != null ? Description.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Picture != null ? Picture.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ (Bookmarks != null ? Bookmarks.GetHashCode() : 0);
-                return hashCode;
-            }
-        }
     }
 }

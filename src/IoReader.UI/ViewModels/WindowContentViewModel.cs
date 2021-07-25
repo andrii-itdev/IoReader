@@ -1,6 +1,9 @@
 ﻿using System.Windows.Input;
 using IoReader.Commands;
+using IoReader.Communication.Mediators;
 using IoReader.Mediators;
+using IoReader.Models;
+using IoReader.Models.ApplicationData;
 using IoReader.ViewModels.ContentViewModels;
 
 namespace IoReader.ViewModels
@@ -13,12 +16,8 @@ namespace IoReader.ViewModels
 
         public IContentViewModel LastContentViewModel { get; protected set; }
 
-        public LibraryViewModel LibraryVm { get; protected set; }
-        public BookInformationViewModel BookInfoVm { get; protected set; }
-        public BookViewModel BookVm { get; protected set; }
-        public AddNewBookViewModel AddNewBookViewModel { get; protected set; }
-
-        public readonly IContentViewModel DefaultContentViewModel;
+        public LibraryModel libraryModel { get; set; }
+        public BookModel BookModel { get; set; }
 
         public ICommand CollapseRevealBookCommand { get; set; }
 
@@ -36,97 +35,41 @@ namespace IoReader.ViewModels
         {
             this.Mediator = contentMediator;
 
-            this.LibraryVm = new LibraryViewModel(contentMediator);
-            this.BookInfoVm = new BookInformationViewModel(contentMediator);
-            this.BookVm = new BookViewModel(contentMediator);
-            this.AddNewBookViewModel = new AddNewBookViewModel(contentMediator);
-            this.DefaultContentViewModel = LibraryVm;
-
-            this.ContentVm = BookVm;
             this.CollapseRevealBookCommand = new RelayCommand(OnCollapseRevealBookExecute);
-            this.Mediator.NavigationEvent += MediatorOnNavigate;
-            this.Mediator.AddNewBookEvent += MediatorOnAddNewBook;
-            this.Mediator.NavigateLastEvent += MediatorOnNavigateLast;
-            this.Mediator.NavigateBookEvent += MediatorOnNavigateBook;
 
-            this.Mediator.Navigate(DefaultContentViewModel);
+            Mediator.LibraryViewUpdatedEvent += Mediator_LibraryViewUpdatedEvent;
+            Mediator.BookViewUpdatedEvent += Mediator_BookViewUpdatedEvent;
+            Mediator.BookInfoViewUpdatedEvent += Mediator_BookInfoViewUpdatedEvent;
+            Mediator.AddNewBookViewUpdatedEvent += Mediator_AddNewBookViewUpdatedEvent;
+
+            Mediator.NavigateLibrary();
         }
 
-        private void MediatorOnNavigateBook()
+        private BookInformationModel Mediator_AddNewBookViewUpdatedEvent(BookshelfModel onTopOfBookshelf)
         {
-            this.Mediator.Navigate(this.BookVm);
+            var addNewBookVm = new AddNewBookViewModel(this.Mediator, onTopOfBookshelf);
+            this.ContentVm = addNewBookVm;
+            return addNewBookVm.UnderlyingModel;
         }
 
-        private void MediatorOnNavigateLast()
+        private void Mediator_BookInfoViewUpdatedEvent(BookInformationModel obj)
         {
-            this.Mediator.Navigate(this.LastContentViewModel);
+            this.ContentVm = new BookInformationViewModel(this.Mediator, obj);
         }
 
-        private void MediatorOnAddNewBook(AddNewBookViewModel obj)
+        private void Mediator_BookViewUpdatedEvent(BookModel obj)
         {
-            this.LibraryVm.DefaultBookShelfViewModel.AddBook(obj);
-            this.Mediator.Navigate(DefaultContentViewModel);
+            this.ContentVm = new BookViewModel(this.Mediator, obj);
         }
 
-        private void UpdateBook(BookViewModel targetBookViewModel)
+        private void Mediator_LibraryViewUpdatedEvent(LibraryModel obj)
         {
-            if (!this.BookVm.Equals(targetBookViewModel))
-            {
-                this.BookVm.Dispose();
-                this.BookVm = targetBookViewModel;
-            }
-        }
-
-        private void MediatorOnNavigate(IContentViewModel contentViewModel)
-        {
-            // If current VM is opened book, then lastVM is any ContentVM but not book.
-            // If current VM is NOT book, then lastVM is last opened book.
-            // If new contentVM is a new book, then the previous book will be closed and overriden by new one.
-
-            if (this.ContentVm is BookViewModel bookViewModel)
-            {
-                if (contentViewModel is BookViewModel targetBookViewModel)
-                {
-                    UpdateBook(targetBookViewModel);
-
-                    this.ContentVm = targetBookViewModel;
-                }
-                else
-                {
-                    // Saving last opened book
-                    this.LastContentViewModel = this.ContentVm;
-
-                    this.ContentVm = contentViewModel;
-                }
-            }
-            else
-            {
-                if (contentViewModel is BookViewModel targetBookViewModel)
-                {
-                    UpdateBook(targetBookViewModel);
-
-                    // Saving last vm for "Io" button
-                    this.LastContentViewModel = this.ContentVm;
-
-                    this.ContentVm = targetBookViewModel;
-                }
-                else
-                {
-                    this.ContentVm = contentViewModel;
-                }
-            }
+            this.ContentVm = new LibraryViewModel(this.Mediator, obj);
         }
 
         private void OnCollapseRevealBookExecute(object contentViewModel)
         {
-            if (this.ContentVm is BookViewModel bookViewModel)
-            {
-                this.Mediator.NavigateLast();
-            }
-            else
-            {
-                this.Mediator.NavigateBook();
-            }
+            this.Mediator.NavigateLast();
         }
     }
 }

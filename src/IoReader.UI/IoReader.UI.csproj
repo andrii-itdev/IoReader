@@ -85,8 +85,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Mediators\ContentMediator.cs" />
-    <Compile Include="Mediators\IHasContentMediator.cs" />
     <Compile Include="Selectors\ViewTemplateSelector.cs" />
     <Compile Include="ViewModels\ContentViewModels\AddNewBookViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
@@ -144,6 +142,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\IoReader.Communication\IoReader.Communication.csproj">
+      <Project>{269919b4-d8f9-466d-ad6a-c1d25011fcb8}</Project>
+      <Name>IoReader.Communication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\IoReader.Models\IoReader.Models.csproj">
       <Project>{742347cf-ff49-4354-8c5b-fbbdf29f9ca1}</Project>
       <Name>IoReader.Models</Name>

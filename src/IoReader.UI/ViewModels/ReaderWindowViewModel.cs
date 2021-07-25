@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using IoReader.Communication.Mediators;
 using IoReader.Mediators;
 
 namespace IoReader.ViewModels

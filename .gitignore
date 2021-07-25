@@ -17,3 +17,4 @@ obj
 /src/IoReader.UI/bin/Debug
 /src/*.user
 /src/UnitTests/bin/Debug
+/src/IoReader.Communication/bin/Debug
