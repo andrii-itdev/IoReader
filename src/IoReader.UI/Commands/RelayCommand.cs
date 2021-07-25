@@ -17,9 +17,7 @@ namespace IoReader.Commands
         public RelayCommand(Action<object> execute) : this(execute, null) { }
         public RelayCommand(Action<object> execute, Predicate<object> canExecute)
         {
-            if (execute == null)
-                throw new ArgumentNullException(nameof(execute));
-            _execute = execute; 
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute)); 
             _canExecute = canExecute;
         }
 
@@ -30,12 +28,12 @@ namespace IoReader.Commands
         [DebuggerStepThrough]
         public bool CanExecute(object parameter)
         {
-            return _canExecute == null ? true : _canExecute(parameter);
+            return _canExecute?.Invoke(parameter) ?? true;
         }
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
         public void Execute(object parameter) { _execute(parameter); }
 
@@ -56,9 +54,7 @@ namespace IoReader.Commands
         public RelayCommand(Action<T> execute) : this(execute, null) { }
         public RelayCommand(Action<T> execute, Predicate<T> canExecute)
         {
-            if (execute == null)
-                throw new ArgumentNullException(nameof(execute));
-            _execute = execute; _canExecute = canExecute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute)); _canExecute = canExecute;
         }
 
         #endregion // Constructors 
@@ -68,12 +64,12 @@ namespace IoReader.Commands
         [DebuggerStepThrough]
         public bool CanExecute(T parameter)
         {
-            return _canExecute == null ? true : _canExecute(parameter);
+            return _canExecute?.Invoke(parameter) ?? true;
         }
         public event EventHandler CanExecuteChanged
         {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
+            add => CommandManager.RequerySuggested += value;
+            remove => CommandManager.RequerySuggested -= value;
         }
         public void Execute(T parameter)
         {
@@ -82,7 +78,7 @@ namespace IoReader.Commands
 
         public bool CanExecute(object parameter)
         {
-            return (_canExecute == null) || (parameter is T) && CanExecute((T)parameter);
+            return (_canExecute == null) || (parameter is T tParameter) && CanExecute(tParameter);
         }
 
         public void Execute(object parameter)

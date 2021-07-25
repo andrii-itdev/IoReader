@@ -1,26 +1,23 @@
-﻿using IoReader.Models;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Windows.Controls;
 
 namespace IoReader.Models
 {
     public class BookModel : IContentModel, IDisposable
     {
-        private bool disposedValue;
+        private bool _disposedValue;
 
         public Stream ContentsStream { get; set; }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!_disposedValue)
             {
                 if (disposing)
                 {
                     ContentsStream.Dispose();
                 }
-                disposedValue = true;
+                _disposedValue = true;
             }
         }
 

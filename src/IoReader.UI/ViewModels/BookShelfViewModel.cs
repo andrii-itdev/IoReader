@@ -2,7 +2,6 @@
 using System.Windows.Input;
 using System.Linq;
 using IoReader.Commands;
-using IoReader.Mediators;
 using IoReader.Models;
 using IoReader.ViewModels.ContentViewModels;
 using IoReader.Communication.Mediators;

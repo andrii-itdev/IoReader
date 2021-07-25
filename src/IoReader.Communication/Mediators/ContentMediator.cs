@@ -18,7 +18,6 @@ namespace IoReader.Communication.Mediators
         bool NavigateLibrary();
         void NavigateAddNewBook(BookshelfModel onTopOfBookshelfModel);
 
-        void AddNewBook(BookInformationModel addNewBookViewModel);
         void AddNewBook(BookshelfModel onTopOf, BookInformationModel newBookModel);
         void RemoveBook(BookInformationModel bookModel);
         void OpenNewBook(BookModel bookModel);
@@ -28,15 +27,13 @@ namespace IoReader.Communication.Mediators
     {
         class ContentStateMachine
         {
-            public BookModel BookModel { get; set; }
+            public BookModel BookModel { get; }
             public INoBookContentModel NoBookContent { get; set; }
-            public LibraryModel LibraryModel { get; set; }
+            public LibraryModel LibraryModel { get; }
 
-            public IContentModel LastModel { get; set; }
+            private IContentModel LastModel { get; set; }
             public IContentModel CurrentModel { get; set; }
-            public bool IsCurrentModelBook { get { return CurrentModel is BookModel; } }
-
-            public readonly IContentModel DefaultModel;
+            public bool IsCurrentModelBook => CurrentModel is BookModel;
 
             public ContentStateMachine(DataLoader dataLoader)
             {
@@ -44,89 +41,80 @@ namespace IoReader.Communication.Mediators
                 LibraryModel = dataLoader.LoadLibrary();
 
                 NoBookContent = LibraryModel;
-                DefaultModel = LibraryModel;
                 CurrentModel = null;
                 LastModel = BookModel;
             }
         }
 
-        private ContentStateMachine contentStateMachine;
+        private readonly ContentStateMachine _contentStateMachine;
 
         public event Action<BookModel> BookViewUpdatedEvent;
         public event Action<BookInformationModel> BookInfoViewUpdatedEvent;
         public event Action<LibraryModel> LibraryViewUpdatedEvent;
         public event Func<BookshelfModel, BookInformationModel> AddNewBookViewUpdatedEvent;
 
-        //public event Action<> ContentModelUpdated;
-
-        //public void Navigate(IContentModel contentViewModel)
-        //{
-        //    NavigationEvent?.Invoke(contentViewModel);
-        //}
-
         public ContentMediator(DataLoader dataLoader)
         {
-            contentStateMachine = new ContentStateMachine(dataLoader);
+            _contentStateMachine = new ContentStateMachine(dataLoader);
         }
 
         public void NavigateLast()
         {
             if (!NavigateBook())
             {
-                switch (contentStateMachine.NoBookContent)
+                switch (_contentStateMachine.NoBookContent)
                 {
                     case LibraryModel _:
                         NavigateLibrary();
                         break;
                     default:
-                        throw new NotSupportedException($"NavigateLast for entities other than {typeof(LibraryModel).Name}");
+                        throw new NotSupportedException($"NavigateLast for entities other than {nameof(LibraryModel)}");
                 }
             }
         }
 
         public bool NavigateBook()
         {
-            if (contentStateMachine.IsCurrentModelBook)
+            if (_contentStateMachine.IsCurrentModelBook)
             {
                 return false;
             }
             else
             {
-                contentStateMachine.CurrentModel = contentStateMachine.BookModel;
-                BookViewUpdatedEvent.Invoke(contentStateMachine.BookModel);
+                _contentStateMachine.CurrentModel = _contentStateMachine.BookModel;
+                BookViewUpdatedEvent?.Invoke(_contentStateMachine.BookModel);
                 return true;
             }
         }
 
         public bool NavigateLibrary()
         {
-            if (contentStateMachine.CurrentModel == contentStateMachine.LibraryModel)
+            if (_contentStateMachine.CurrentModel == _contentStateMachine.LibraryModel)
             {
                 return false;
             }
             else
             {
-                contentStateMachine.NoBookContent = contentStateMachine.LibraryModel;
-                contentStateMachine.CurrentModel = contentStateMachine.NoBookContent;
-                LibraryViewUpdatedEvent?.Invoke(contentStateMachine.LibraryModel);
+                _contentStateMachine.NoBookContent = _contentStateMachine.LibraryModel;
+                _contentStateMachine.CurrentModel = _contentStateMachine.NoBookContent;
+                LibraryViewUpdatedEvent?.Invoke(_contentStateMachine.LibraryModel);
                 return true;
             }
         }
 
         public void NavigateAddNewBook(BookshelfModel onTopOfBookshelfModel)
         {
-            var bookinformation = AddNewBookViewUpdatedEvent.Invoke(onTopOfBookshelfModel);
-            contentStateMachine.NoBookContent = bookinformation;
-            contentStateMachine.CurrentModel = contentStateMachine.NoBookContent;
+            if (AddNewBookViewUpdatedEvent != null)
+            {
+                var bookInformation = AddNewBookViewUpdatedEvent.Invoke(onTopOfBookshelfModel);
+                _contentStateMachine.NoBookContent = bookInformation;
+                _contentStateMachine.CurrentModel = _contentStateMachine.NoBookContent;
+            }
         }
 
-        public void AddNewBook(BookInformationModel newBookModel)
-        {
-            AddNewBook(contentStateMachine.LibraryModel.Default, newBookModel);
-        }
         public void AddNewBook(BookshelfModel onTopOf, BookInformationModel newBookModel)
         {
-            if (contentStateMachine.LibraryModel.Bookshelves.Contains(onTopOf))
+            if (_contentStateMachine.LibraryModel.Bookshelves.Contains(onTopOf))
             {
                 onTopOf.Add(newBookModel);
                 NavigateLibrary();
@@ -139,7 +127,7 @@ namespace IoReader.Communication.Mediators
 
         public void RemoveBook(BookInformationModel bookModel)
         {
-            if (contentStateMachine.LibraryModel.RemoveBook(bookModel))
+            if (_contentStateMachine.LibraryModel.RemoveBook(bookModel))
             {
                 NavigateLibrary();
             }

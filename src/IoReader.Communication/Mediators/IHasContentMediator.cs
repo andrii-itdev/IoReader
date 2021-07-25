@@ -1,6 +1,4 @@
-﻿using IoReader.Communication.Mediators;
-
-namespace IoReader.Mediators
+﻿namespace IoReader.Communication.Mediators
 {
     public interface IHasContentMediator
     {

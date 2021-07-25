@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Linq;
@@ -27,13 +26,29 @@ namespace IoReader.ViewModels.ContentViewModels
 
         #endregion
 
-        public string Title { get { return UnderlyingModel.Title; } set { UnderlyingModel.Title = value; } }
+        public string Title
+        {
+            get => UnderlyingModel.Title;
+            set => UnderlyingModel.Title = value;
+        }
 
-        public string Author { get { return UnderlyingModel.Author; } set { UnderlyingModel.Author = value; } }
+        public string Author
+        {
+            get => UnderlyingModel.Author;
+            set => UnderlyingModel.Author = value;
+        }
 
-        public int Year { get { return UnderlyingModel.Year; } set { UnderlyingModel.Year = value; } }
+        public int Year
+        {
+            get => UnderlyingModel.Year;
+            set => UnderlyingModel.Year = value;
+        }
 
-        public string Description { get { return UnderlyingModel.Description; } set { UnderlyingModel.Description = value; } }
+        public string Description
+        {
+            get => UnderlyingModel.Description;
+            set => UnderlyingModel.Description = value;
+        }
 
         public Image Picture { get; set; }
         // Needs changes
@@ -46,8 +61,6 @@ namespace IoReader.ViewModels.ContentViewModels
                 ); 
             }
         }
-
-
 
         public IContentMediator Mediator { get; protected set; }
 

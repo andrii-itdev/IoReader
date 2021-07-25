@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using IoReader.Mediators;
+﻿using IoReader.Communication.Mediators;
 
 namespace IoReader.ViewModels
 {

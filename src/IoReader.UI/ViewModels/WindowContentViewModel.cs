@@ -1,9 +1,7 @@
 ﻿using System.Windows.Input;
 using IoReader.Commands;
 using IoReader.Communication.Mediators;
-using IoReader.Mediators;
 using IoReader.Models;
-using IoReader.Models.ApplicationData;
 using IoReader.ViewModels.ContentViewModels;
 
 namespace IoReader.ViewModels
@@ -15,9 +13,6 @@ namespace IoReader.ViewModels
         public IContentMediator Mediator { get; protected set; }
 
         public IContentViewModel LastContentViewModel { get; protected set; }
-
-        public LibraryModel libraryModel { get; set; }
-        public BookModel BookModel { get; set; }
 
         public ICommand CollapseRevealBookCommand { get; set; }
 

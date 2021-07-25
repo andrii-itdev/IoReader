@@ -8,8 +8,16 @@ namespace IoReader.ViewModels
         public ICommand RemoveBookmarkCommand { get; set; }
 
         public ICommand GotoCommand { get; set; }
-        
-        public string Name { get { return UnderlyingModel.Name; } set { UnderlyingModel.Name = Name; OnPropertyChanged(); } }
+
+        public string Name
+        {
+            get => UnderlyingModel.Name;
+            set
+            {
+                UnderlyingModel.Name = value;
+                OnPropertyChanged();
+            }
+        }
 
         public BookmarkViewModel(BookmarkModel model)
         {

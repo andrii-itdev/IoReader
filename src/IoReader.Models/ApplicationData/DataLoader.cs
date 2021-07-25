@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IoReader.Models.ApplicationData
 {
@@ -19,9 +15,9 @@ namespace IoReader.Models.ApplicationData
             defaultBookshelf.Add(
                 new BookInformationModel(defaultBookshelf)
                 {
-                    Title = "The Alborado",
-                    Author = "J. J. Abrams",
-                    Description = "A cool book about a real city made of diamonds"
+                    Title = "Chronicles Of The Basilisk",
+                    Author = "Ariana Simand",
+                    Description = "Adventure book"
                 });
 
             return new LibraryModel(defaultBookshelf);
